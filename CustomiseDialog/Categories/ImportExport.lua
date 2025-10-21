@@ -4,6 +4,7 @@ local addonTable = select(2, ...)
 function addonTable.CustomiseDialog.SingleCategoryExport(name)
   local export = {
     version = 2,
+    addon = "Baganator",
     categories = {},
     modifications = {},
   }
@@ -52,6 +53,7 @@ end
 function addonTable.CustomiseDialog.CategoriesExport()
   local export = {
     version = 2,
+    addon = "Baganator",
     categories = {},
     sections = CopyTable(addonTable.Config.Get("category_sections")),
     modifications = {},
