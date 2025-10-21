@@ -1,4 +1,4 @@
-## Interface: 110200, 110205, 50501, 40402, 30405, 11507
+## Interface: 110200, 110205, 50501, 40402, 30405, 11508, 11507
 ## Title: Baganator
 ## Version: @project-version@
 ## Author: plusmouse
