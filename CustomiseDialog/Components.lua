@@ -171,9 +171,7 @@ function BaganatorCustomSliderMixin:Init(details)
   self.Label:SetText(self.text)
 
   self.Slider:RegisterCallback("OnValueChanged", function(_, value)
-    if userInput then
-      self.callback(value)
-    end
+    self.callback(value)
   end)
   addonTable.Skins.AddFrame("Slider", self.Slider)
 end
@@ -189,7 +187,6 @@ end
 function BaganatorCustomSliderMixin:OnMouseWheel(delta)
   if self.Slider:IsEnabled() then
     self.Slider:SetValue(self.Slider.Slider:GetValue() + delta)
-    self.callback(self.Slider:GetValue())
   end
 end
 
