@@ -50,23 +50,24 @@ BaganatorSliderMixin = {}
 
 function BaganatorSliderMixin:Init(details)
   Mixin(self, details)
-  self.Slider:SetMinMaxValues(self.min, self.max)
 
-  self.Slider:SetValueStep(1)
-  self.Slider:SetObeyStepOnDrag(true)
-  self.Label:SetText(self.text)
   self.valuePattern = self.valuePattern or "%s"
+
+  self.Slider:Init(self.max, self.min, self.max, self.max - self.min, {
+    [MinimalSliderWithSteppersMixin.Label.Right]  = CreateMinimalSliderFormatter(MinimalSliderWithSteppersMixin.Label.Right, function(value)
+      return WHITE_FONT_COLOR:WrapTextInColorCode(self.valuePattern:format(value))
+    end)
+  })
+
+  self.Label:SetText(self.text)
 
   addonTable.Skins.AddFrame("Slider", self.Slider)
 
-  self.Slider:SetScript("OnValueChanged", function()
-    local value = self.Slider:GetValue()
+  self.Slider:RegisterCallback("OnValueChanged", function(_, value)
     if self.scale then
       value = value / self.scale
-    else
     end
     addonTable.Config.Set(self.option, value)
-    self.ValueText:SetText(self.valuePattern:format(math.floor(self.Slider:GetValue())))
   end)
 end
 
@@ -75,7 +76,7 @@ function BaganatorSliderMixin:SetValue(value)
 end
 
 function BaganatorSliderMixin:OnMouseWheel(delta)
-  self.Slider:SetValue(self.Slider:GetValue() + delta)
+  self.Slider:SetValue(self.Slider.Slider:GetValue() + delta)
 end
 
 BaganatorHeaderMixin = {}
@@ -161,18 +162,18 @@ function BaganatorCustomSliderMixin:Init(details)
   Mixin(self, details)
   self.callback = self.callback or function(_) end
 
-  self.Slider:SetMinMaxValues(self.min, self.max)
+  self.Slider:Init(self.max, self.min, self.max, self.max - self.min, {
+    [MinimalSliderWithSteppersMixin.Label.Right]  = CreateMinimalSliderFormatter(MinimalSliderWithSteppersMixin.Label.Right, function(value)
+      return WHITE_FONT_COLOR:WrapTextInColorCode(self.valueToText[value])
+    end)
+  })
+
   self.Label:SetText(self.text)
 
-  self.Slider:SetValueStep(1)
-  self.Slider:SetObeyStepOnDrag(true)
-
-  self.Slider:SetScript("OnValueChanged", function(_, _, userInput)
-    local value = self.Slider:GetValue()
+  self.Slider:RegisterCallback("OnValueChanged", function(_, value)
     if userInput then
       self.callback(value)
     end
-    self.ValueText:SetText(self.valueToText[value])
   end)
   addonTable.Skins.AddFrame("Slider", self.Slider)
 end
@@ -182,12 +183,12 @@ function BaganatorCustomSliderMixin:SetValue(value)
 end
 
 function BaganatorCustomSliderMixin:GetValue()
-  return self.Slider:GetValue()
+  return self.Slider.Slider:GetValue()
 end
 
 function BaganatorCustomSliderMixin:OnMouseWheel(delta)
   if self.Slider:IsEnabled() then
-    self.Slider:SetValue(self.Slider:GetValue() + delta)
+    self.Slider:SetValue(self.Slider.Slider:GetValue() + delta)
     self.callback(self.Slider:GetValue())
   end
 end

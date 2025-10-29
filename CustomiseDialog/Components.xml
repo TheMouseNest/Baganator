@@ -12,7 +12,7 @@
   <Frame name="BaganatorSliderTemplate" virtual="true" mixin="BaganatorSliderMixin">
     <Size y="40"/>
     <Frames>
-      <Slider parentKey="Slider" inherits="UISliderTemplate">
+      <Slider parentKey="Slider" inherits="MinimalSliderWithSteppersTemplate">
         <Size y="20"/>
         <Anchors>
           <Anchor point="RIGHT" x="-45"/>
@@ -26,11 +26,6 @@
           <Anchors>
             <Anchor point="LEFT" x="20"/>
             <Anchor point="RIGHT" relativePoint="CENTER" x="-50"/>
-          </Anchors>
-        </FontString>
-        <FontString parentKey="ValueText" inherits="GameFontHighlight" justifyH="LEFT" text="XX">
-          <Anchors>
-            <Anchor point="LEFT" relativePoint="RIGHT" x="-35"/>
           </Anchors>
         </FontString>
       </Layer>
@@ -115,15 +110,10 @@
             <Anchor point="LEFT" x="15"/>
           </Anchors>
         </FontString>
-        <FontString parentKey="ValueText" inherits="GameFontHighlight" justifyH="LEFT" text="XX">
-          <Anchors>
-            <Anchor point="LEFT" relativePoint="RIGHT" x="-55"/>
-          </Anchors>
-        </FontString>
       </Layer>
     </Layers>
     <Frames>
-      <Slider parentKey="Slider" inherits="UISliderTemplate">
+      <Slider parentKey="Slider" inherits="MinimalSliderWithSteppersTemplate">
         <Size y="20"/>
         <Anchors>
           <Anchor point="RIGHT" x="-70"/>

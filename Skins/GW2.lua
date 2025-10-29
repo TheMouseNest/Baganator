@@ -312,6 +312,7 @@ local skinners = {
     frame:SetSize(15, 15)
   end,
   Slider = function(frame)
+    frame = frame.Slider
     frame:GwSkinSliderFrame()
     frame:GetThumbTexture():SetSize(16, 16)
     frame.tex:SetDrawLayer("ARTWORK")
