@@ -157,7 +157,7 @@ local function LoadSkin()
     end
   end
 
-  B, C, L, DB = unpack(NDui or AuroraClassic)
+  B, _, _, DB = unpack(NDui or AuroraClassic)
 end
 
 if addonTable.Skins.IsAddOnLoading("NDui") or addonTable.Skins.IsAddOnLoading("AuroraClassic") then
