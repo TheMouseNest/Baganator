@@ -12,7 +12,7 @@ local function HasItemLevel(details)
     -- Profession equipment (retail only)
     or classID == Enum.ItemClass.Profession
     -- Legion Artifact relics (retail only)
-    or (classID == Enum.ItemClass.Gem and IsArtifactRelicItem and IsArtifactRelicItem(details.itemLink))
+    or (classID == Enum.ItemClass.Gem and C_ItemSocketInfo.IsArtifactRelicItem and C_ItemSocketInfo.IsArtifactRelicItem(details.itemLink))
 end
 
 local qualityColors = {
