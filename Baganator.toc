@@ -172,3 +172,4 @@ Compatibility\Refunds.lua
 Compatibility\Contexts.lua
 Compatibility\ItemLevels.lua
 Compatibility\AuctionValue.lua
+Compatibility\Midnight.lua
