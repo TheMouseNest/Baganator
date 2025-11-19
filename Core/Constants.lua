@@ -8,8 +8,6 @@ addonTable.Constants = {
   IsEra = WOW_PROJECT_ID == WOW_PROJECT_CLASSIC,
   IsClassic = WOW_PROJECT_ID ~= WOW_PROJECT_MAINLINE,
 
-  IsMidnight = select(4, GetBuildInfo()) >= 120000,
-
   MaxRecents = 20,
   MaxRecentsTabs = 5,
   BattlePetCageID = 82800,
