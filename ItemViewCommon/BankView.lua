@@ -42,6 +42,7 @@ function BaganatorItemViewCommonBankViewMixin:OnLoad()
 end
 
 function BaganatorItemViewCommonBankViewMixin:SetTab(index)
+  self.SearchWidget:OnHide()
   self.currentTab:Hide()
   addonTable.Config.Set(addonTable.Config.Options.BANK_CURRENT_TAB, index)
 
