@@ -315,10 +315,6 @@ end, function(itemButton)
 end, nil, true)
 
 addonTable.Utilities.OnAddonLoaded("CanIMogIt", function()
-  if addonTable.Constants.IsClassic then
-    return
-  end
-
   local function IsPet(itemID)
     local classID, subClassID = select(6, C_Item.GetItemInfoInstant(itemID))
     return classID == Enum.ItemClass.Battlepet or classID == Enum.ItemClass.Miscellaneous and subClassID == Enum.ItemMiscellaneousSubclass.CompanionPet
