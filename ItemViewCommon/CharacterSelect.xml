@@ -31,7 +31,7 @@
       <Button parentKey="ManageCharactersButton" inherits="UIPanelDynamicResizeButtonTemplate" text="BAGANATOR_L_MANAGE_CHARACTERS">
         <Scripts>
           <OnClick>
-            Settings.OpenToCategory(SYNDICATOR_L_SYNDICATOR)
+            Settings.OpenToCategory(Syndicator.OptionsCategory and Syndicator.OptionsCategory:GetID() or SYNDICATOR_L_SYNDICATOR)
           </OnClick>
         </Scripts>
         <Anchors>
