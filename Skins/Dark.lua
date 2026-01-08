@@ -311,4 +311,4 @@ addonTable.Skins.RegisterSkin(addonTable.Locales.DARK, "dark", LoadSkin, SkinFra
     option = "square_icons",
     default = false,
   },
-})
+}, false, true)

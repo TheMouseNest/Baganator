@@ -130,4 +130,4 @@ addonTable.Skins.RegisterSkin(addonTable.Locales.BLIZZARD, "blizzard", LoadSkin,
     option = "empty_slot_background",
     default = false,
   },
-})
+}, false, true)
