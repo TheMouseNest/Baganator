@@ -27,6 +27,14 @@
           </OnEnter>
         </Scripts>
       </Button>
+
+      <Button parentKey="ToggleGroupButton" inherits="BaganatorToggleGroupButtonTemplate" frameLevel="700" parentArray="AllFixedButtons">
+        <Anchors>
+          <Anchor point="RIGHT" relativeKey="$parent.SortButton" relativePoint="LEFT"/>
+          <Anchor point="TOP" y="-1"/>
+        </Anchors>
+      </Button>
+
       <Button parentKey="TransferButton" inherits="BaganatorTransferButtonTemplate" frameLevel="700" parentArray="AllFixedButtons">
         <Anchors>
           <Anchor point="RIGHT" relativeKey="$parent.SortButton" relativePoint="LEFT"/>

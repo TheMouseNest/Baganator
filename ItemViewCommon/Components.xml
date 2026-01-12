@@ -154,6 +154,33 @@
     </Layers>
   </Button>
 
+ <Button name="BaganatorToggleGroupButtonTemplate" virtual="true" inherits="BaganatorTooltipIconButtonTemplate">
+    <KeyValues>
+      <KeyValue key="tooltipHeader" value="BAGANATOR_L_GROUP_IDENTICAL_ITEMS" type="global"/>
+    </KeyValues>
+    <Scripts>
+      <OnLoad>
+        Baganator.Skins.AddFrame("IconButton", self, {"toggleGroup"})
+      </OnLoad>
+    </Scripts>
+    <Layers>
+      <Layer level="ARTWORK">
+        <Texture parentKey="Icon" file="Interface\AddOns\Baganator\Assets\Bags.png">
+          <Size x="17" y="17"/>
+          <Anchors>
+            <Anchor point="CENTER"/>
+          </Anchors>
+        </Texture>
+      </Layer>
+    </Layers>
+    <Scripts>
+      <OnClick>
+        Baganator.CallbackRegistry:TriggerEvent("ToggleGroup")
+      </OnClick>
+    </Scripts>
+  </Button>
+
+
   <Button name="BaganatorTransferButtonTemplate" virtual="true" inherits="BaganatorTooltipIconButtonTemplate" motionScriptsWhileDisabled="true">
     <KeyValues>
       <KeyValue key="tooltipHeader" value="BAGANATOR_L_TRANSFER" type="global"/>
