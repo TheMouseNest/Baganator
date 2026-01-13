@@ -107,14 +107,17 @@ function addonTable.Transfers.GetCurrentBankSlots()
   if addonTable.Config.Get(addonTable.Config.Options.BANK_CURRENT_TAB) == addonTable.Constants.BankTabType.Character then
     if Syndicator.Constants.CharacterBankTabsActive then
       local tabIndex = addonTable.Config.Get(addonTable.Config.Options.CHARACTER_BANK_CURRENT_TAB)
-      if tabIndex > 0 then
-        local bagsData = {Syndicator.API.GetCharacter(Syndicator.API.GetCurrentCharacter()).bankTabs[tabIndex].slots}
+      local bankTabs = Syndicator.API.GetCharacter(Syndicator.API.GetCurrentCharacter()).bankTabs
+      if #bankTabs == 0 then
+        return {}
+      elseif tabIndex > 0 then
+        local bagsData = {bankTabs[tabIndex].slots}
         local indexes = {Syndicator.Constants.AllBankIndexes[tabIndex]}
         bankSlots = addonTable.Transfers.GetBagsSlots(bagsData, indexes)
       else
         local bagsData = {}
         local indexes = Syndicator.Constants.AllBankIndexes
-        for _, tab in ipairs(Syndicator.API.GetCharacter(Syndicator.API.GetCurrentCharacter()).bankTabs) do
+        for _, tab in ipairs(bankTabs) do
           table.insert(bagsData, tab.slots)
         end
         bankSlots = addonTable.Transfers.GetBagsSlots(bagsData, indexes)
