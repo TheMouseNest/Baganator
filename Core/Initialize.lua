@@ -69,14 +69,12 @@ addonTable.Utilities.OnAddonLoaded("Baganator", function()
 
   if addonTable.Config.Get(addonTable.Config.Options.SEEN_WELCOME) < 1 then
     local frame = CreateFrame("Frame")
-    frame:RegisterEvent("PLAYER_ENTERING_WORLD")
+    frame:RegisterEvent("PLAYER_LOGIN")
     frame:SetScript("OnEvent", function()
-      frame:UnregisterEvent("PLAYER_ENTERING_WORLD")
+      frame:UnregisterEvent("PLAYER_LOGIN")
       -- Show after Syndicator has started
       C_Timer.After(0, function()
-        C_Timer.After(0, function()
-          addonTable.ShowWelcome()
-        end)
+        addonTable.ShowWelcome()
       end)
     end)
   end
