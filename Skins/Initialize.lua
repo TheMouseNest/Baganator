@@ -42,16 +42,12 @@ function addonTable.Skins.Initialize()
     currentSkinner = currentSkin.skinner
     addonTable.ViewManagement.GenerateFrameGroup(currentSkinKey)
   end
-  if currentSkin.isBaseline then
+  local frame = CreateFrame("Frame")
+  frame:RegisterEvent("PLAYER_LOGIN")
+  frame:SetScript("OnEvent", function()
+    frame:UnregisterEvent("PLAYER_LOGIN")
     Generate()
-  else
-    local frame = CreateFrame("Frame")
-    frame:RegisterEvent("PLAYER_LOGIN")
-    frame:SetScript("OnEvent", function()
-      frame:UnregisterEvent("PLAYER_LOGIN")
-      Generate()
-    end)
-  end
+  end)
 
   addonTable.CallbackRegistry:RegisterCallback("SettingChanged", function(_, settingName)
     if settingName == addonTable.Config.Options.CURRENT_SKIN then
