@@ -20,8 +20,6 @@
 ## Category-zhCN: 物品栏
 ## Category-zhTW: 物品欄
 
-Embeds\json.lua
-
 Locales.lua
 
 Core\Objects.lua

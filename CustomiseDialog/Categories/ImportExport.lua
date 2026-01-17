@@ -47,7 +47,7 @@ function addonTable.CustomiseDialog.SingleCategoryExport(name)
     hideIn = #hideIn > 0 and hideIn or nil,
   })
 
-  return addonTable.json.encode(export)
+  return C_EncodingUtil.SerializeJSON(export)
 end
 
 function addonTable.CustomiseDialog.CategoriesExport()
@@ -106,7 +106,7 @@ function addonTable.CustomiseDialog.CategoriesExport()
     end
   end
 
-  return addonTable.json.encode(export)
+  return C_EncodingUtil.SerializeJSON(export)
 end
 
 local function ImportCategories(import)
@@ -241,7 +241,7 @@ local function ImportCategories(import)
 end
 
 function addonTable.CustomiseDialog.CategoriesImport(input)
-  local success, import = pcall(addonTable.json.decode, input)
+  local success, import = pcall(C_EncodingUtil.DeserializeJSON, input)
   if not success then
     addonTable.Utilities.Message(addonTable.Locales.INVALID_CATEGORY_IMPORT_FORMAT)
     return

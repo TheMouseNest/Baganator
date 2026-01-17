@@ -116,8 +116,8 @@ end
 
 local function CompareCurrent()
   local current = addonTable.CustomiseDialog.CategoriesExport()
-  local toMod = addonTable.json.decode(current)
-  local defaultImport = addonTable.json.decode(
+  local toMod = C_EncodingUtil.DeserializeJSON(current)
+  local defaultImport = C_EncodingUtil.DeserializeJSON(
   -- math.max(1 in case the user has an old category layout from before the
   -- defaults import was added
     addonTable.CategoryViews.Constants.DefaultImport[math.max(1, addonTable.Config.Get(addonTable.Config.Options.CATEGORY_DEFAULT_IMPORT))]
