@@ -1,4 +1,4 @@
-## Interface: 120000, 110207, 50503, 40402, 38000, 11508
+## Interface: 120000, 110207, 50503, 38000, 20505, 11508
 ## Title: Baganator
 ## Version: @project-version@
 ## Author: plusmouse
@@ -19,8 +19,6 @@
 ## Category-ruRU: Предметы
 ## Category-zhCN: 物品栏
 ## Category-zhTW: 物品欄
-
-Embeds\json.lua
 
 Locales.lua
 

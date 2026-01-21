@@ -251,12 +251,6 @@ local OPEN_CLOSE_OPTIONS = {
   },
   {
     type = "checkbox",
-    text = addonTable.Locales.VOID_STORAGE,
-    option = "auto_open.void_storage",
-    check = IsRetailCheck,
-  },
-  {
-    type = "checkbox",
     text = addonTable.Locales.MAIL,
     option = "auto_open.mail",
   },

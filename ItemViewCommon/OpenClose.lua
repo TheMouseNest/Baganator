@@ -12,7 +12,6 @@ local event_drivers = {
 }
 local interactions = {
   [IT.GuildBanker] = { option = "guild_bank", default = false },
-  [IT.VoidStorageBanker] = {option = "void_storage", default = false },
   [IT.Auctioneer] = {option = "auction_house", default = addonTable.Constants.IsRetail },
   [IT.MailInfo] = {option = "mail", default = false },
   [IT.Merchant] = {option = "merchant", default = true },

@@ -1,7 +1,7 @@
 ---@class addonTableBaganator
 local addonTable = select(2, ...)
 -- Blizzard Equipment sets (Wrath onwards)
-if not addonTable.Constants.IsEra and Syndicator then
+if not addonTable.Constants.IsEra and not addonTable.Constants.IsBC and Syndicator then
   local BlizzardSetTracker = CreateFrame("Frame")
   local EQUIPMENT_SETS_PATTERN = EQUIPMENT_SETS:gsub("%%s", "(.*)")
 

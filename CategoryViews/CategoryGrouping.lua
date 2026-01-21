@@ -390,9 +390,9 @@ do
     end
 
     local frame = CreateFrame("Frame")
-    frame:RegisterEvent("PLAYER_ENTERING_WORLD")
+    frame:RegisterEvent("PLAYER_LOGIN")
     frame:SetScript("OnEvent", function()
-      frame:UnregisterEvent("PLAYER_ENTERING_WORLD")
+      frame:UnregisterEvent("PLAYER_LOGIN")
       for key, itemLink in pairs(items) do
         local itemID = C_Item.GetItemInfoInstant(itemLink)
         pending = pending + 1
