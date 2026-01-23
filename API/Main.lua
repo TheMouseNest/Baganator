@@ -176,6 +176,12 @@ do
     ["bottom_left"] = 3,
     ["bottom_right"] = 4,
   }
+  local cornersReverseMap = {
+    ["icon_top_left_corner_array"] = "top_left",
+    ["icon_top_right_corner_array"] = "top_right",
+    ["icon_bottom_left_corner_array"] = "bottom_left",
+    ["icon_bottom_right_corner_array"] = "bottom_right",
+  }
 
   local function AutoInsert(id, defaultPosition)
     local alreadyApplied = addonTable.Config.Get(addonTable.Config.Options.ICON_CORNERS_AUTO_INSERT_APPLIED)
@@ -242,6 +248,15 @@ do
       end
     end
     return false
+  end
+
+  function Baganator.API.GetCurrentCornerForWidget(id)
+    for _, key in ipairs(corners) do
+      if tIndexOf(addonTable.Config.Get(key), id) ~= nil then
+        return cornersReverseMap[key]
+      end
+    end
+    return nil
   end
 end
 
