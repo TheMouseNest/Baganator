@@ -210,6 +210,12 @@ else -- retail
       search = "#" .. TOY:lower(),
       priorityOffset = -20,
     },
+    {
+      key = "housing",
+      name = C_Item.GetItemClassInfo(Enum.ItemClass.Housing),
+      search = "#" .. C_Item.GetItemClassInfo(Enum.ItemClass.Housing):lower(),
+      priorityOffset = 0,
+    },
   }
 end
 
@@ -273,12 +279,6 @@ tAppendAll(addonTable.CategoryViews.Constants.DefaultCategories, {
     name = C_Item.GetItemClassInfo(Enum.ItemClass.Miscellaneous),
     search = "#" .. C_Item.GetItemClassInfo(Enum.ItemClass.Miscellaneous):lower() .. "&!#" .. Syndicator.Locales.KEYWORD_GEAR,
     priorityOffset = -30,
-  },
-  {
-    key = "housing",
-    name = C_Item.GetItemClassInfo(Enum.ItemClass.Housing),
-    search = "#" .. C_Item.GetItemClassInfo(Enum.ItemClass.Housing):lower(),
-    priorityOffset = 0,
   },
   {
     key = "other",
