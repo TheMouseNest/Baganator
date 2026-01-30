@@ -163,29 +163,10 @@ keysMapping["invertedItemLevelRaw"] = function(self)
 end
 
 if addonTable.Constants.IsRetail then
-  local itemLevelMap = {}
-  local ITEM_LEVEL_PATTERN = ITEM_LEVEL:gsub("%%d", "(%%d+)")
-  local function ExtractItemLevelRetail(itemLink)
-    local tooltipData = C_TooltipInfo.GetHyperlink(itemLink)
-    if not tooltipData then
-      itemLevelMap[itemLink] = 0
-      return 0
-    end
-    for _, line in ipairs(tooltipData.lines) do
-      local level = line.leftText:match(ITEM_LEVEL_PATTERN)
-      if level then
-        level = tonumber(level)
-        itemLevelMap[itemLink] = level
-        return level
-      end
-    end
-    itemLevelMap[itemLink] = 0
-    return 0
-  end
   keysMapping["invertedItemLevelEquipment"] = function(self)
     if Syndicator.Utilities.IsEquipment(self.itemLink) then
       if C_Item.IsItemDataCachedByID(self.itemID) then
-        return -(itemLevelMap[self.itemLink] or ExtractItemLevelRetail(self.itemLink))
+        return -addonTable.Utilities.ExtractItemLevel(self.itemLink)
       else
         C_Item.RequestLoadItemDataByID(self.itemID)
       end

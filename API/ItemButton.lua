@@ -66,6 +66,8 @@ Baganator.API.RegisterCornerWidget(addonTable.Locales.ITEM_LEVEL, "item_level", 
     if not details.itemLevel then
       if details.itemLocation and C_Item.DoesItemExist(details.itemLocation) then
         details.itemLevel = C_Item.GetCurrentItemLevel(details.itemLocation)
+      elseif addonTable.Constants.IsRetail then
+        details.itemLevel = addonTable.Utilities.ExtractItemLevel(details.itemLink)
       else
         details.itemLevel = C_Item.GetDetailedItemLevelInfo(details.itemLink)
       end
@@ -96,6 +98,9 @@ do
     end
 
     if eventName == "PLAYER_LEVEL_UP" then
+      if addonTable.Constants.IsRetail then
+        addonTable.Utilities.ResetItemLevelCache()
+      end
       Baganator.API.RequestItemButtonsRefresh({Baganator.Constants.RefreshReason.ItemWidgets})
     -- Detect entering or leaving a timewalking raid instance
     elseif eventName == "PLAYER_ENTERING_WORLD" then
@@ -103,6 +108,9 @@ do
       if lastDifficultyID ~= nil and lastDifficultyID ~= newDifficultyID and (
         newDifficultyID == 33 or lastDifficultyID == 33
         ) then
+        if addonTable.Constants.IsRetail then
+          addonTable.Utilities.ResetItemLevelCache()
+        end
         Baganator.API.RequestItemButtonsRefresh({Baganator.Constants.RefreshReason.ItemWidgets})
       end
       lastDifficultyID = newDifficultyID
