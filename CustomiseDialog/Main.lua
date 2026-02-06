@@ -57,8 +57,6 @@ local LAYOUT_OPTIONS = {
     type = "slider",
     min = 1,
     max = 24,
-    lowText = "1",
-    highText = "24",
     text = addonTable.Locales.BAG_COLUMNS,
     option = "bag_view_width",
   },
@@ -66,8 +64,6 @@ local LAYOUT_OPTIONS = {
     type = "slider",
     min = 1,
     max = 42,
-    lowText = "1",
-    highText = "42",
     text = addonTable.Locales.BANK_COLUMNS,
     option = "bank_view_width",
     check = function() return not Syndicator.Constants.CharacterBankTabsActive or not addonTable.Constants.IsRetail end,
@@ -76,8 +72,6 @@ local LAYOUT_OPTIONS = {
     type = "slider",
     min = 1,
     max = 42,
-    lowText = "1",
-    highText = "42",
     text = addonTable.Locales.BANK_COLUMNS,
     option = "character_bank_view_width",
     check = function() return Syndicator.Constants.CharacterBankTabsActive and addonTable.Constants.IsRetail end,
@@ -86,8 +80,6 @@ local LAYOUT_OPTIONS = {
     type = "slider",
     min = 1,
     max = 42,
-    lowText = "1",
-    highText = "42",
     text = addonTable.Locales.WARBAND_BANK_COLUMNS,
     option = "warband_bank_view_width",
     check = function() return Syndicator.Constants.WarbandBankActive end,
@@ -96,8 +88,6 @@ local LAYOUT_OPTIONS = {
     type = "slider",
     min = 1,
     max = 42,
-    lowText = "1",
-    highText = "42",
     text = addonTable.Locales.GUILD_BANK_COLUMNS,
     option = "guild_view_width",
     check = NotIsEraCheck,
@@ -132,8 +122,6 @@ local LAYOUT_OPTIONS = {
     min = 0,
     max = 200,
     scale = 100,
-    lowText = "0%",
-    highText = "200%",
     text = addonTable.Locales.CATEGORY_SPACING,
     option = "category_horizontal_spacing_2",
     valuePattern = addonTable.Locales.PERCENTAGE_PATTERN,
@@ -199,8 +187,6 @@ local ICON_OPTIONS = {
     type = "slider",
     min = 10,
     max = 70,
-    lowText = "10",
-    highText = "70",
     text = addonTable.Locales.ICON_SIZE,
     valuePattern = addonTable.Locales.PIXEL_PATTERN,
     option = "bag_icon_size",
@@ -209,8 +195,6 @@ local ICON_OPTIONS = {
     type = "slider",
     min = 5,
     max = 40,
-    lowText = "5",
-    highText = "40",
     text = addonTable.Locales.ICON_TEXT_FONT_SIZE,
     valuePattern = addonTable.Locales.PIXEL_PATTERN,
     option = "icon_text_font_size",
@@ -345,8 +329,6 @@ local SORTING_OPTIONS = {
     type = "slider",
     min = 0,
     max = 240,
-    lowText = "0",
-    highText = "240",
     text = addonTable.Locales.IGNORED_BAG_SLOTS,
     option = "sort_ignore_slots_count_2",
   },
@@ -354,8 +336,6 @@ local SORTING_OPTIONS = {
     type = "slider",
     min = 0,
     max = 500,
-    lowText = "0",
-    highText = "500",
     text = addonTable.Locales.IGNORED_BANK_SLOTS,
     option = "sort_ignore_bank_slots_count",
   },
@@ -373,25 +353,36 @@ local function GenerateFrames(options, parent)
     if not option.check or option.check() then
       local frame
       if option.type == "checkbox" then
-        frame = CreateFrame("Frame", nil, parent, "BaganatorCheckBoxTemplate")
+        frame = addonTable.CustomiseDialog.Components.GetCheckbox(parent, option.text, -28, function(checked)
+          addonTable.Config.Set(option.option, checked)
+        end)
         frame:SetPoint("TOP", lastFrame, "BOTTOM", 0, offsetY)
         frame:SetPoint("LEFT", parent, 40, 0)
         frame:SetPoint("RIGHT", parent, -40, 0)
       elseif option.type == "slider" then
-        frame = CreateFrame("Frame", nil, parent, "BaganatorSliderTemplate")
+        frame = addonTable.CustomiseDialog.Components.GetSlider(parent, option.text, option.min, option.max, function(value)
+          if option.valuePattern then
+            return option.valuePattern:format(value)
+          else
+            return tostring(value)
+          end
+        end, function(value)
+          addonTable.Config.Set(option.option, value)
+        end)
         frame:SetPoint("TOP", lastFrame, "BOTTOM", 0, offsetY)
       elseif option.type == "dropdown" then
         frame = addonTable.CustomiseDialog.GetBasicDropdown(parent)
+        frame:Init(option)
         frame:SetPoint("TOP", lastFrame, "BOTTOM", 0, offsetY)
       elseif option.type == "header" then
-        frame = CreateFrame("Frame", nil, parent, "BaganatorHeaderTemplate")
+        frame = addonTable.CustomiseDialog.Components.GetHeader(parent, option.text)
         frame:SetPoint("TOP", lastFrame, "BOTTOM", 0, offsetY)
       elseif option.type == "spacing" then
         offsetY = -30
       end
       if frame then
+        frame.option = option.option
         offsetY = 0
-        frame:Init(option)
         table.insert(allFrames, frame)
         lastFrame = frame
       end
@@ -406,13 +397,8 @@ local function GenerateFrames(options, parent)
   return allFrames
 end
 
-local function GetTab(parent)
-  local tab
-  if addonTable.Constants.IsRetail then
-    tab = CreateFrame("Button", nil, parent, "BaganatorRetailTabTopTemplate")
-  else
-    tab = CreateFrame("Button", nil, parent, "BaganatorClassicTabTopTemplate")
-  end
+local function GetTab(parent, text)
+  local tab = addonTable.CustomiseDialog.Components.GetTab(parent, text)
 
   if tIndexOf(parent.Tabs, tab) == nil then
     table.insert(parent.Tabs, tab)
@@ -500,8 +486,7 @@ function BaganatorCustomiseDialogMixin:SetIndex(index)
 end
 
 function BaganatorCustomiseDialogMixin:SetupGeneral()
-  local tab = GetTab(self)
-  tab:SetText(addonTable.Locales.GENERAL)
+  local tab = GetTab(self, addonTable.Locales.GENERAL)
 
   local frame = GetWrapperFrame(self)
 
@@ -799,8 +784,7 @@ function BaganatorCustomiseDialogMixin:SetupGeneral()
 end
 
 function BaganatorCustomiseDialogMixin:SetupIcon()
-  local tab = GetTab(self)
-  tab:SetText(addonTable.Locales.ICONS)
+  local tab = GetTab(self, addonTable.Locales.ICONS)
 
   local frame = GetWrapperFrame(self)
 
@@ -832,8 +816,7 @@ function BaganatorCustomiseDialogMixin:SetupIcon()
 end
 
 function BaganatorCustomiseDialogMixin:SetupOpenClose()
-  local tab = GetTab(self)
-  tab:SetText(addonTable.Locales.AUTO_OPEN)
+  local tab = GetTab(self, addonTable.Locales.AUTO_OPEN)
 
   local frame = GetWrapperFrame(self)
 
@@ -851,8 +834,7 @@ function BaganatorCustomiseDialogMixin:SetupOpenClose()
 end
 
 function BaganatorCustomiseDialogMixin:SetupSorting()
-  local tab = GetTab(self)
-  tab:SetText(addonTable.Locales.SORTING)
+  local tab = GetTab(self, addonTable.Locales.SORTING)
 
   local options = CopyTable(SORTING_OPTIONS)
 
@@ -937,8 +919,7 @@ function BaganatorCustomiseDialogMixin:SetupSorting()
 end
 
 function BaganatorCustomiseDialogMixin:SetupLayout()
-  local tab = GetTab(self)
-  tab:SetText(addonTable.Locales.LAYOUT)
+  local tab = GetTab(self, addonTable.Locales.LAYOUT)
 
   local frame = GetWrapperFrame(self)
 
@@ -962,7 +943,7 @@ function BaganatorCustomiseDialogMixin:SetupLayout()
     end
   end)
 
-  local _, resetAnchor = FindInTableIf(allFrames, function(f) return f.text == addonTable.Locales.LOCK_WINDOWS end)
+  local _, resetAnchor = FindInTableIf(allFrames, function(f) return f.checkBox and f.checkBox:GetText() == addonTable.Locales.LOCK_WINDOWS end)
   frame.ResetFramePositions = CreateFrame("Button", nil, frame, "UIPanelDynamicResizeButtonTemplate")
   frame.ResetFramePositions:SetPoint("LEFT", resetAnchor, "CENTER", 55, 0)
   frame.ResetFramePositions:SetText(addonTable.Locales.RESET_POSITIONS)
@@ -973,7 +954,7 @@ function BaganatorCustomiseDialogMixin:SetupLayout()
   frame.ResetFramePositions:SetFrameLevel(10000)
   addonTable.Skins.AddFrame("Button", frame.ResetFramePositions)
 
-  resetAnchor.CheckBox.HoverBackground:SetPoint("RIGHT", frame.ResetFramePositions, "LEFT")
+  resetAnchor.checkBox.HoverBackground:SetPoint("RIGHT", frame.ResetFramePositions, "LEFT")
 
   frame:SetScript("OnShow", UpdateValues)
 
@@ -981,8 +962,7 @@ function BaganatorCustomiseDialogMixin:SetupLayout()
 end
 
 function BaganatorCustomiseDialogMixin:SetupTheme()
-  local tab = GetTab(self)
-  tab:SetText(addonTable.Locales.THEME)
+  local tab = GetTab(self, addonTable.Locales.THEME)
 
   local chooseSkinValues = {}
   for key in pairs(addonTable.Skins.availableSkins) do
@@ -1036,8 +1016,7 @@ function BaganatorCustomiseDialogMixin:SetupTheme()
 end
 
 function BaganatorCustomiseDialogMixin:SetupCategoriesOptions()
-  local tab = GetTab(self)
-  tab:SetText(addonTable.Locales.CATEGORIES)
+  local tab = GetTab(self, addonTable.Locales.CATEGORIES)
 
   local frame = GetWrapperFrame(self)
 

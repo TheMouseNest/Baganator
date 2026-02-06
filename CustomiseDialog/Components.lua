@@ -1,88 +1,123 @@
 ---@class addonTableBaganator
 local addonTable = select(2, ...)
-BaganatorCheckBoxMixin = {}
-function BaganatorCheckBoxMixin:OnLoad()
-  if DoesTemplateExist("SettingsCheckBoxTemplate") then
-    self.CheckBox = CreateFrame("CheckButton", nil, self, "SettingsCheckBoxTemplate")
-  else
-    self.CheckBox = CreateFrame("CheckButton", nil, self, "SettingsCheckboxTemplate")
+
+function addonTable.CustomiseDialog.Components.GetCheckbox(parent, label, spacing, callback)
+  spacing = spacing or 0
+  local holder = CreateFrame("Frame", nil, parent)
+  holder:SetHeight(40)
+  holder:SetPoint("LEFT", parent, "LEFT", 30, 0)
+  holder:SetPoint("RIGHT", parent, "RIGHT", -15, 0)
+  local checkBox = CreateFrame("CheckButton", nil, holder, "SettingsCheckboxTemplate")
+
+  holder.checkBox = checkBox
+  checkBox:SetPoint("LEFT", holder, "CENTER", -15 - spacing, 0)
+  checkBox:SetText(label)
+  checkBox:SetNormalFontObject(GameFontHighlight)
+  checkBox:GetFontString():SetPoint("RIGHT", holder, "CENTER", -30 - spacing, 0)
+  checkBox:GetFontString():SetPoint("LEFT", holder)
+  checkBox:GetFontString():SetJustifyH("RIGHT")
+
+  addonTable.Skins.AddFrame("CheckBox", checkBox)
+
+  function holder:SetValue(value)
+    checkBox:SetChecked(value)
   end
-  self.CheckBox:SetPoint("LEFT", self, "CENTER", -35, 0)
-  self.CheckBox:SetText(" ")
-  self.CheckBox:SetNormalFontObject(GameFontHighlight)
-  self.CheckBox:GetFontString():SetPoint("RIGHT", self, "CENTER", -50, 0)
-  self.rightLabel = self:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
-  self.rightLabel:SetPoint("LEFT", self.CheckBox, "RIGHT", 15, 0)
+
+  holder:SetScript("OnEnter", function()
+    checkBox:OnEnter()
+  end)
+
+  holder:SetScript("OnLeave", function()
+    checkBox:OnLeave()
+  end)
+
+  holder:SetScript("OnMouseUp", function()
+    checkBox:Click()
+  end)
+
+  checkBox:SetScript("OnClick", function()
+    callback(checkBox:GetChecked())
+  end)
+
+  return holder
 end
-function BaganatorCheckBoxMixin:Init(details)
-  Mixin(self, details)
-  self.CheckBox:SetText(self.text)
-  addonTable.Skins.AddFrame("CheckBox", self.CheckBox)
-  self.rightLabel:SetText(self.rightText or "")
-  if self.root then
-    self.CheckBox:SetScript("OnClick", function()
-      addonTable.Config.Get(self.root)[self.option] = self.CheckBox:GetChecked()
+
+function addonTable.CustomiseDialog.Components.GetHeader(parent, text)
+  local holder = CreateFrame("Frame", nil, parent)
+  holder:SetPoint("LEFT", 30, 0)
+  holder:SetPoint("RIGHT", -30, 0)
+  holder.text = holder:CreateFontString(nil, "OVERLAY", "GameFontHighlightLarge")
+  holder.text:SetText(text)
+  holder.text:SetPoint("LEFT", 20, -1)
+  holder.text:SetPoint("RIGHT", 20, -1)
+  holder:SetHeight(40)
+  return holder
+end
+
+function addonTable.CustomiseDialog.Components.GetTab(parent, text)
+  local tab
+  if addonTable.Constants.IsRetail then
+    tab = CreateFrame("Button", nil, parent, "PanelTopTabButtonTemplate")
+    tab:SetScript("OnShow", function(self)
+      PanelTemplates_TabResize(self, 15, nil, 70)
+      PanelTemplates_DeselectTab(self)
     end)
   else
-    self.CheckBox:SetScript("OnClick", function()
-      addonTable.Config.Set(self.option, self.CheckBox:GetChecked())
+    tab = CreateFrame("Button", nil, parent, "TabButtonTemplate")
+    tab:SetScript("OnShow", function(self)
+      PanelTemplates_TabResize(self, 0, nil, 0)
+      PanelTemplates_DeselectTab(self)
     end)
   end
+  tab:SetText(text)
+  tab:GetScript("OnShow")(tab)
+  addonTable.Skins.AddFrame("TopTabButton", tab)
+  return tab
 end
 
-function BaganatorCheckBoxMixin:SetValue(value)
-  self.CheckBox:SetChecked(value)
-end
+function addonTable.CustomiseDialog.Components.GetSlider(parent, label, min, max, formatter, callback)
+  local holder = CreateFrame("Frame", nil, parent)
+  holder:SetHeight(40)
+  holder:SetPoint("LEFT", parent, "LEFT", 30, 0)
+  holder:SetPoint("RIGHT", parent, "RIGHT", -30, 0)
 
-function BaganatorCheckBoxMixin:OnEnter()
-  self.CheckBox:OnEnter()
-end
+  holder.Label = holder:CreateFontString(nil, "ARTWORK", "GameFontHighlight")
+  holder.Label:SetJustifyH("RIGHT")
+  holder.Label:SetPoint("LEFT", 20, 0)
+  holder.Label:SetPoint("RIGHT", holder, "CENTER", -50, 0)
+  holder.Label:SetText(label)
 
-function BaganatorCheckBoxMixin:OnLeave()
-  self.CheckBox:OnLeave()
-end
-
-function BaganatorCheckBoxMixin:OnMouseUp()
-  self.CheckBox:Click()
-end
-
-BaganatorSliderMixin = {}
-
-function BaganatorSliderMixin:Init(details)
-  Mixin(self, details)
-
-  self.valuePattern = self.valuePattern or "%s"
-
-  self.Slider:Init(self.max, self.min, self.max, self.max - self.min, {
+  holder.Slider = CreateFrame("Slider", nil, holder, "MinimalSliderWithSteppersTemplate")
+  holder.Slider:SetPoint("LEFT", holder, "CENTER", -32, 0)
+  holder.Slider:SetPoint("RIGHT", -45, 0)
+  holder.Slider:SetHeight(20)
+  holder.Slider:Init(max, min, max, max - min, {
     [MinimalSliderWithSteppersMixin.Label.Right]  = CreateMinimalSliderFormatter(MinimalSliderWithSteppersMixin.Label.Right, function(value)
-      return WHITE_FONT_COLOR:WrapTextInColorCode(self.valuePattern:format(value))
+      return WHITE_FONT_COLOR:WrapTextInColorCode(formatter(value))
     end)
   })
 
-  self.Label:SetText(self.text)
-
-  addonTable.Skins.AddFrame("Slider", self.Slider)
-
-  self.Slider:RegisterCallback("OnValueChanged", function(_, value)
-    if self.scale then
-      value = value / self.scale
-    end
-    addonTable.Config.Set(self.option, value)
+  holder.Slider:RegisterCallback(MinimalSliderWithSteppersMixin.Event.OnValueChanged, function(_, value)
+    callback(value)
   end)
-end
 
-function BaganatorSliderMixin:SetValue(value)
-  self.Slider:SetValue(value * (self.scale or 1))
-end
+  function holder:GetValue()
+    return holder.Slider.Slider:GetValue()
+  end
 
-function BaganatorSliderMixin:OnMouseWheel(delta)
-  self.Slider:SetValue(self.Slider.Slider:GetValue() + delta)
-end
+  function holder:SetValue(value)
+    return holder.Slider:SetValue(value)
+  end
 
-BaganatorHeaderMixin = {}
+  --addonTable.Skins.AddFrame("Slider", holder.Slider)
 
-function BaganatorHeaderMixin:Init(details)
-  self.Label:SetText(details.text);
+  holder:SetScript("OnMouseWheel", function(_, delta)
+    if holder.Slider.Slider:IsEnabled() then
+      holder.Slider:SetValue(holder.Slider.Slider:GetValue() + delta)
+    end
+  end)
+
+  return holder
 end
 
 function addonTable.CustomiseDialog.GetDraggable(callback, movedCallback)
@@ -154,48 +189,6 @@ function addonTable.CustomiseDialog.GetMouseOverInContainer(c)
       return f, f:IsMouseOver(0, f:GetHeight()/2), f.indexValue
     end
   end
-end
-
-BaganatorCustomSliderMixin = {}
-
-function BaganatorCustomSliderMixin:Init(details)
-  Mixin(self, details)
-  self.callback = self.callback or function(_) end
-
-  self.Slider:Init(self.max, self.min, self.max, self.max - self.min, {
-    [MinimalSliderWithSteppersMixin.Label.Right]  = CreateMinimalSliderFormatter(MinimalSliderWithSteppersMixin.Label.Right, function(value)
-      return WHITE_FONT_COLOR:WrapTextInColorCode(self.valueToText[value])
-    end)
-  })
-
-  self.Label:SetText(self.text)
-
-  self.Slider:RegisterCallback("OnValueChanged", function(_, value)
-    self.callback(value)
-  end)
-  addonTable.Skins.AddFrame("Slider", self.Slider)
-end
-
-function BaganatorCustomSliderMixin:SetValue(value)
-  self.Slider:SetValue(value)
-end
-
-function BaganatorCustomSliderMixin:GetValue()
-  return self.Slider.Slider:GetValue()
-end
-
-function BaganatorCustomSliderMixin:OnMouseWheel(delta)
-  if self.Slider:IsEnabled() then
-    self.Slider:SetValue(self.Slider.Slider:GetValue() + delta)
-  end
-end
-
-function BaganatorCustomSliderMixin:Disable()
-  self.Slider:Disable()
-end
-
-function BaganatorCustomSliderMixin:Enable()
-  self.Slider:Enable()
 end
 
 function addonTable.CustomiseDialog.GetDropdown(parent)

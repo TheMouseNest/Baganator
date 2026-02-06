@@ -11,7 +11,9 @@ addonTable.ItemViewCommon = {
 addonTable.ViewManagement = {}
 addonTable.SingleViews = {}
 addonTable.CategoryViews = {}
-addonTable.CustomiseDialog = {}
+addonTable.CustomiseDialog = {
+  Components = {},
+}
 addonTable.API = {}
 addonTable.Sorting = {}
 addonTable.Transfers = {}

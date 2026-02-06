@@ -67,22 +67,20 @@ function BaganatorCustomiseDialogCategoriesEditorMixin:OnLoad()
 
   table.insert(self.ChangeAlpha, self.PrefixCheckBox)
 
-  self.PrioritySlider = CreateFrame("Frame", nil, self, "BaganatorCustomSliderTemplate")
-  self.PrioritySlider:Init({
-    text = addonTable.Locales.PRIORITY,
-    callback = function() self:Save() end,
-    min = -1,
-    max = 3,
-    valueToText = {
-      [-1] = addonTable.Locales.LOW,
-      [0] = addonTable.Locales.NORMAL,
-      [1] = addonTable.Locales.HIGH,
-      [2] = addonTable.Locales.HIGHER,
-      [3] = addonTable.Locales.HIGHEST,
-    }
-  })
-  self.PrioritySlider:SetPoint("LEFT")
-  self.PrioritySlider:SetPoint("RIGHT")
+  local valueToText = {
+    [-1] = addonTable.Locales.LOW,
+    [0] = addonTable.Locales.NORMAL,
+    [1] = addonTable.Locales.HIGH,
+    [2] = addonTable.Locales.HIGHER,
+    [3] = addonTable.Locales.HIGHEST,
+  }
+  self.PrioritySlider = addonTable.CustomiseDialog.Components.GetSlider(self, addonTable.Locales.PRIORITY, -1, 3, function(value)
+    return valueToText[value]
+  end, function()
+    self:Save()
+  end)
+  self.PrioritySlider:SetPoint("LEFT", -45, 0)
+  self.PrioritySlider:SetPoint("RIGHT", -10, 0)
   self.PrioritySlider:SetPoint("TOP", 0, -210)
   self.PrioritySlider:SetValue(0)
   table.insert(self.ChangeAlpha, self.PrioritySlider)
