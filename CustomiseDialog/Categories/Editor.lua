@@ -74,7 +74,7 @@ function BaganatorCustomiseDialogCategoriesEditorMixin:OnLoad()
     [2] = addonTable.Locales.HIGHER,
     [3] = addonTable.Locales.HIGHEST,
   }
-  self.PrioritySlider = addonTable.CustomiseDialog.Components.GetSlider(self, addonTable.Locales.PRIORITY, -1, 3, function(value)
+  self.PrioritySlider = addonTable.CustomiseDialog.Components.GetSlider(self, addonTable.Locales.PRIORITY, -1, 3, nil, function(value)
     return valueToText[value]
   end, function()
     self:Save()

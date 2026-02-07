@@ -75,7 +75,8 @@ function addonTable.CustomiseDialog.Components.GetTab(parent, text)
   return tab
 end
 
-function addonTable.CustomiseDialog.Components.GetSlider(parent, label, min, max, formatter, callback)
+function addonTable.CustomiseDialog.Components.GetSlider(parent, label, min, max, scale, formatter, callback)
+  scale = scale or 1
   local holder = CreateFrame("Frame", nil, parent)
   holder:SetHeight(40)
   holder:SetPoint("LEFT", parent, "LEFT", 30, 0)
@@ -93,20 +94,20 @@ function addonTable.CustomiseDialog.Components.GetSlider(parent, label, min, max
   holder.Slider:SetHeight(20)
   holder.Slider:Init(max, min, max, max - min, {
     [MinimalSliderWithSteppersMixin.Label.Right]  = CreateMinimalSliderFormatter(MinimalSliderWithSteppersMixin.Label.Right, function(value)
-      return WHITE_FONT_COLOR:WrapTextInColorCode(formatter(value))
+      return WHITE_FONT_COLOR:WrapTextInColorCode(formatter(value / scale))
     end)
   })
 
   holder.Slider:RegisterCallback(MinimalSliderWithSteppersMixin.Event.OnValueChanged, function(_, value)
-    callback(value)
+    callback(value / scale)
   end)
 
   function holder:GetValue()
-    return holder.Slider.Slider:GetValue()
+    return holder.Slider.Slider:GetValue() / scale
   end
 
   function holder:SetValue(value)
-    return holder.Slider:SetValue(value)
+    return holder.Slider:SetValue(value * scale)
   end
 
   --addonTable.Skins.AddFrame("Slider", holder.Slider)

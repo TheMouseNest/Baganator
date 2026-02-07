@@ -9,7 +9,7 @@ function addonTable.CustomiseDialog.GetCategoriesRecentEditor(parent)
   local valueMapping = {0, 15, 30, 60, 60 * 5, 60 * 10, 60 * 20, 60 * 40, 60 * 60, -1}
   local labelMapping = {addonTable.Locales.IMMEDIATE, "15s", "30s", "1m", "5m", "10m", "20m", "40m", "60m", addonTable.Locales.FOREVER}
 
-  local slider = addonTable.CustomiseDialog.Components.GetSlider(holder, addonTable.Locales.RECENT_TIMER, 1, #valueMapping, function(value)
+  local slider = addonTable.CustomiseDialog.Components.GetSlider(holder, addonTable.Locales.RECENT_TIMER, 1, #valueMapping, nil, function(value)
     return labelMapping[value]
   end, function(value)
     addonTable.Config.Set("recent_timeout", valueMapping[value])

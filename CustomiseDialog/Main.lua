@@ -360,11 +360,11 @@ local function GenerateFrames(options, parent)
         frame:SetPoint("LEFT", parent, 40, 0)
         frame:SetPoint("RIGHT", parent, -40, 0)
       elseif option.type == "slider" then
-        frame = addonTable.CustomiseDialog.Components.GetSlider(parent, option.text, option.min, option.max, function(value)
+        frame = addonTable.CustomiseDialog.Components.GetSlider(parent, option.text, option.min, option.max, option.scale, function(value)
           if option.valuePattern then
-            return option.valuePattern:format(value)
+            return option.valuePattern:format(value * (option.scale or 1))
           else
-            return tostring(value)
+            return tostring(value * (option.scale or 1))
           end
         end, function(value)
           addonTable.Config.Set(option.option, value)
