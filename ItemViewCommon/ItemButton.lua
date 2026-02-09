@@ -84,7 +84,7 @@ function addonTable.ItemButtonUtil.UpdateSettings()
       end
       if self.BGR.tooltipInfo then
         for _, row in ipairs(self.BGR.tooltipInfo.lines) do
-          if row.leftColor.r == 1 and row.leftColor.g < 0.2 and row.leftColor.b < 0.2 and row.leftText ~= ITEM_SCRAPABLE_NOT or
+          if row.leftColor.r == 1 and row.leftColor.g < 0.2 and row.leftColor.b < 0.2 and row.leftText ~= ITEM_SCRAPABLE_NOT and row.leftText ~= CANNOT_UNEQUIP_COMBAT or
              row.rightColor and row.rightColor.r == 1 and row.rightColor.g < 0.2 and row.rightColor.b < 0.2 then
             self.BGR.markUnusable = true
             self.icon:SetVertexColor(RED_FONT_COLOR.r, RED_FONT_COLOR.g, RED_FONT_COLOR.b)
