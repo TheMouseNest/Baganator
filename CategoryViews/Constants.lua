@@ -89,6 +89,16 @@ if addonTable.Constants.IsEra or addonTable.Constants.IsBC or addonTable.Constan
     },
   }
 
+  if not addonTable.Constants.IsEra then
+    table.insert(addonTable.CategoryViews.Constants.DefaultCategories,
+      {
+        key = "gem",
+        name = C_Item.GetItemClassInfo(Enum.ItemClass.Gem),
+        search = "#" .. C_Item.GetItemClassInfo(Enum.ItemClass.Gem):lower(),
+      }
+    )
+  end
+
 elseif addonTable.Constants.IsClassic then -- Cata
   addonTable.CategoryViews.Constants.OldDefaults = {
     "default_hearthstone",
@@ -319,12 +329,20 @@ for index, category in ipairs(addonTable.CategoryViews.Constants.DefaultCategori
   addonTable.CategoryViews.Constants.SourceToCategory[category.source] = category
 end
 
-if addonTable.Constants.IsEra or addonTable.Constants.IsBC or addonTable.Constants.IsWrath then
+if addonTable.Constants.IsEra then
   addonTable.CategoryViews.Constants.DefaultImportVersion = 3
   addonTable.CategoryViews.Constants.DefaultImport = {
     [[{"categories":[],"version":1,"order":["default_hearthstone","default_consumable","default_questitem","_EQUIPMENT","default_auto_equipment_sets","default_weapon","default_armor","__end","_CRAFTING","default_reagent","default_tradegoods","default_recipe","__end","default_projectile","default_container","default_quiver","default_key","default_miscellaneous","default_other","----","default_junk","default_special_empty"],"modifications":[],"hidden":[]}]],
     [[{"categories":[],"version":1,"order":["default_auto_recents","default_hearthstone","default_consumable","default_questitem","_EQUIPMENT","default_auto_equipment_sets","default_weapon","default_armor","__end","_CRAFTING","default_reagent","default_tradegoods","default_recipe","__end","default_projectile","default_container","default_quiver","default_key","default_miscellaneous","default_other","----","default_junk","default_special_empty"],"modifications":[],"hidden":[]}]],
     [[{"categories":[],"version":1,"order":["default_auto_recents","----","default_hearthstone","default_consumable","default_questitem","_EQUIPMENT","default_auto_equipment_sets","default_weapon","default_armor","__end","_CRAFTING","default_reagent","default_tradegoods","default_recipe","__end","default_projectile","default_container","default_quiver","default_key","default_miscellaneous","default_other","----","default_junk","default_special_empty"],"modifications":[],"hidden":[]}]],
+  }
+elseif addonTable.Constants.IsBC or addonTable.Constants.IsWrath then
+  addonTable.CategoryViews.Constants.DefaultImportVersion = 4
+  addonTable.CategoryViews.Constants.DefaultImport = {
+    [[{"categories":[],"version":1,"order":["default_hearthstone","default_consumable","default_questitem","_EQUIPMENT","default_auto_equipment_sets","default_weapon","default_armor","__end","_CRAFTING","default_reagent","default_tradegoods","default_recipe","__end","default_projectile","default_container","default_quiver","default_key","default_miscellaneous","default_other","----","default_junk","default_special_empty"],"modifications":[],"hidden":[]}]],
+    [[{"categories":[],"version":1,"order":["default_auto_recents","default_hearthstone","default_consumable","default_questitem","_EQUIPMENT","default_auto_equipment_sets","default_weapon","default_armor","__end","_CRAFTING","default_reagent","default_tradegoods","default_recipe","__end","default_projectile","default_container","default_quiver","default_key","default_miscellaneous","default_other","----","default_junk","default_special_empty"],"modifications":[],"hidden":[]}]],
+    [[{"categories":[],"version":1,"order":["default_auto_recents","----","default_hearthstone","default_consumable","default_questitem","_EQUIPMENT","default_auto_equipment_sets","default_weapon","default_armor","__end","_CRAFTING","default_reagent","default_tradegoods","default_recipe","__end","default_projectile","default_container","default_quiver","default_key","default_miscellaneous","default_other","----","default_junk","default_special_empty"],"modifications":[],"hidden":[]}]],
+    [[{"categories":[],"version":2,"sections":{"1":{"name":"EQUIPMENT"},"2":{"name":"CRAFTING"}},"addon":"Baganator","order":["default_auto_recents","----","default_hearthstone","default_consumable","default_questitem","_1","default_auto_equipment_sets","default_weapon","default_armor","default_gem","__end","_2","default_reagent","default_tradegoods","default_recipe","__end","default_projectile","default_container","default_quiver","default_key","default_miscellaneous","default_other","----","default_junk","default_special_empty"],"modifications":[],"hidden":[]}]],
   }
 elseif addonTable.Constants.IsClassic then -- Cata/Mists
   addonTable.CategoryViews.Constants.DefaultImportVersion = 3
