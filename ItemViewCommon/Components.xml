@@ -222,6 +222,27 @@
     </Scripts>
   </Button>
 
+  <Button name="BaganatorToggleIdenticalSlotsButtonTemplate" inherits="BaganatorTooltipIconButtonTemplate" virtual="true">
+    <KeyValues>
+      <KeyValue key="tooltipHeader" value="BAGANATOR_L_GROUP_IDENTICAL_ITEMS" type="global"/>
+    </KeyValues>
+    <Scripts>
+      <OnLoad>
+        Baganator.Skins.AddFrame("IconButton", self, {"identicalSlots"})
+      </OnLoad>
+    </Scripts>
+    <Layers>
+      <Layer level="ARTWORK">
+        <Texture parentKey="Icon" file="Interface\AddOns\Baganator\Assets\Transfer.png">
+          <Size x="16" y="16"/>
+          <Anchors>
+            <Anchor point="CENTER"/>
+          </Anchors>
+        </Texture>
+      </Layer>
+    </Layers> 
+  </Button>
+
   <Button name="BaganatorBankButtonTemplate" inherits="BaganatorTooltipIconButtonTemplate" virtual="true">
     <KeyValues>
       <KeyValue key="tooltipHeader" value="BAGANATOR_L_BANK" type="global"/>
