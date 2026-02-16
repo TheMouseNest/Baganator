@@ -424,7 +424,7 @@ L["SYNDICATOR_INSTALL_MESSAGE"] = "Use your addon website/client to install |cff
 L["SLASH_RESET"] = "reset"
 L["SLASH_RESET_HELP"] = "Reset all Baganator settings, then reload."
 L["SLASH_RESETCATEGORIES"] = "resetcategories"
-L["SLASH_RESETCATEGORIES_HELP"] = "Reset category settings to the default, then reload."
+L["SLASH_RESETCATEGORIES_HELP_2"] = "Reset category settings to the default."
 L["SLASH_REMOVEUNUSEDCATEGORIES"] = "removeunusedcategories"
 L["SLASH_REMOVEUNUSEDCATEGORIES_HELP"] = "Remove any categories not currently in use."
 L["SLASH_HELP"] = "Open the Baganator settings."
@@ -438,6 +438,7 @@ L["SLASH_SWAP_HELP"] = "Swap from categories to single bag layout or the reverse
 L["SLASH_CATEGORIES"] = "categories"
 L["SLASH_CATEGORIES_HELP"] = "Show categories matching or not matching items in their tooltips."
 L["SLASH_UNKNOWN_COMMAND"] = "Unknown command '%s'"
+L["CATEGORIES_NOW_RESET"] = "Categories now reset"
 
 local L = Locales.frFR
 --@localization(locale="frFR", format="lua_additive_table")@
