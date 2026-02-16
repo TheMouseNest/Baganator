@@ -26,4 +26,3 @@ jobs:
         args: -p 914482 -a kGr09M6y
       env:
         CF_API_KEY: ${{ secrets.plusmouse_curseforge }}
-        WAGO_API_TOKEN: ${{ secrets.plusmouse_wago }}

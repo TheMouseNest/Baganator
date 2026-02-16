@@ -6,7 +6,6 @@
 ## SavedVariables: BAGANATOR_CONFIG, BAGANATOR_DATA
 ## SavedVariablesPerCharacter: BAGANATOR_CURRENT_PROFILE
 ## IconTexture: Interface\AddOns\Baganator\Assets\logo.tga
-## OptionalDependencies: WagoAnalytics
 
 ## Category-enUS: Inventory
 ## Category-deDE: Inventar
@@ -29,7 +28,6 @@ Core\Config.lua
 Core\Utilities.lua
 Core\SlashCmd.lua
 Core\Welcome.lua
-Core\Analytics.lua
 Core\Dialogs.lua
 Core\Initialize.lua
 
