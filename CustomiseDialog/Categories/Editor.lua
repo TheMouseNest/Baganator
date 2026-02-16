@@ -197,6 +197,12 @@ function BaganatorCustomiseDialogCategoriesEditorMixin:OnLoad()
     self.VisualCategorySearch:RegisterCallback("OnChange", function()
       self:Save()
     end)
+    self.VisualCategorySearch:RegisterCallback("OnMenuKeywordEnter", function(_, entry)
+      addonTable.CallbackRegistry:TriggerEvent("SearchTextChanged", "#" .. entry)
+    end)
+    self.VisualCategorySearch:RegisterCallback("OnMenuKeywordLeave", function(_, entry)
+      addonTable.CallbackRegistry:TriggerEvent("SearchTextChanged", "")
+    end)
     table.insert(self.ChangeAlpha, self.VisualCategorySearch)
 
     self.CategorySearchOptions["visual"] = {holder = self.VisualCategorySearchHolder, widget = self.VisualCategorySearch, changeText = addonTable.Locales.RAW_MODE}
