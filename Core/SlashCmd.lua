@@ -68,7 +68,7 @@ function addonTable.SlashCmd.ResetCategories()
   addonTable.Config.ResetOne(addonTable.Config.Options.CATEGORY_DEFAULT_IMPORT)
   addonTable.Core.MigrateSettings()
 
-  addonTable.Utilities.Message(addonTable.Locales.CATEGORIES_NOW_RESET)
+  addonTable.Utilities.Message(addonTable.Locales.CATEGORY_SETTINGS_HAVE_BEEN_RESET)
 end
 
 function addonTable.SlashCmd.RemoveUnusedCategories()

@@ -438,7 +438,7 @@ L["SLASH_SWAP_HELP"] = "Swap from categories to single bag layout or the reverse
 L["SLASH_CATEGORIES"] = "categories"
 L["SLASH_CATEGORIES_HELP"] = "Show categories matching or not matching items in their tooltips."
 L["SLASH_UNKNOWN_COMMAND"] = "Unknown command '%s'"
-L["CATEGORIES_NOW_RESET"] = "Categories now reset"
+L["CATEGORY_SETTINGS_HAVE_BEEN_RESET"] = "Category settings have been reset"
 
 local L = Locales.frFR
 --@localization(locale="frFR", format="lua_additive_table")@
