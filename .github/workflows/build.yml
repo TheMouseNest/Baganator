@@ -25,4 +25,5 @@ jobs:
       with:
         args: -p 914482 -a kGr09M6y
       env:
+        GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
         CF_API_KEY: ${{ secrets.plusmouse_curseforge }}
