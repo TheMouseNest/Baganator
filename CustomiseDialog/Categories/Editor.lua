@@ -721,7 +721,7 @@ function BaganatorCustomiseDialogCategoriesEditorMixin:MakeATTImportButton(conta
     local items = {}
     for _, path in ipairs(activePaths) do
       local hashes = {strsplit(">", path)}
-      local entry = ATTC.SearchForSourcePath(ATTC:GetDataCache().g, hashes, 2, #hashes)
+      local entry = ATTC.SearchForSourcePath(ATTC:GetDatabaseRoot().g, hashes, 2, #hashes)
 
       local label, value = hashes[#hashes]:match("(%a+)(%-?%d+)")
 
@@ -740,7 +740,7 @@ function BaganatorCustomiseDialogCategoriesEditorMixin:MakeATTImportButton(conta
 
       if not entry then
         local tmp = {}
-        ATTC.BuildFlatSearchResponse(ATTC:GetDataCache().g, label, tonumber(value), tmp)
+        ATTC.BuildFlatSearchResponse(ATTC:GetDatabaseRoot().g, label, tonumber(value), tmp)
         if #tmp == 1 then
           entry = tmp[1]
         end
