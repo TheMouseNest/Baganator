@@ -33,6 +33,8 @@ end
 BaganatorOpenCloseMixin = {}
 
 function BaganatorOpenCloseMixin:OnLoad()
+  self.autoOpened = false
+
   local data = addonTable.Config.Get(addonTable.Config.Options.AUTO_OPEN)
 
   for _, details in pairs(event_drivers) do
@@ -62,17 +64,34 @@ function BaganatorOpenCloseMixin:OnLoad()
     end
   end
 
-  hooksecurefunc("ToggleCharacter", function(view)
+  CharacterFrame:HookScript("OnShow", function()
     local details = frames["CharacterFrame"]
-    if not CheckOption(details.option) then
-      return
-    end
-    if CharacterFrame:IsShown() then
-      addonTable.CallbackRegistry:TriggerEvent("BagShow")
-    else
-      addonTable.CallbackRegistry:TriggerEvent("BagHide")
-    end
+    self:ApplyState(details, true)
   end)
+  CharacterFrame:HookScript("OnHide", function()
+    local details = frames["CharacterFrame"]
+    self:ApplyState(details, false)
+  end)
+end
+
+function BaganatorOpenCloseMixin:IsBagShown()
+  return addonTable.ViewManagement.GetBackpackFrame():IsShown()
+end
+
+function BaganatorOpenCloseMixin:ApplyState(details, state)
+  if not CheckOption(details.option) then
+    return
+  end
+  if self:IsBagShown() and not self.autoOpened then
+    return
+  end
+  if state then
+    addonTable.CallbackRegistry:TriggerEvent("BagShow")
+    self.autoOpened = true
+  else
+    addonTable.CallbackRegistry:TriggerEvent("BagHide")
+    self.autoOpened = false
+  end
 end
 
 function BaganatorOpenCloseMixin:OnEvent(eventName, ...)
@@ -82,24 +101,10 @@ function BaganatorOpenCloseMixin:OnEvent(eventName, ...)
     if not details then
       return
     end
-    if not CheckOption(details.option) then
-      return
-    end
-    if eventName == "PLAYER_INTERACTION_MANAGER_FRAME_SHOW" then
-      addonTable.CallbackRegistry:TriggerEvent("BagShow")
-    else
-      addonTable.CallbackRegistry:TriggerEvent("BagHide")
-    end
+    self:ApplyState(details, eventName == "PLAYER_INTERACTION_MANAGER_FRAME_SHOW")
   else
     local details = event_drivers[eventName]
-    if not CheckOption(details.option) then
-      return
-    end
-    if details.isOpen then
-      addonTable.CallbackRegistry:TriggerEvent("BagShow")
-    else
-      addonTable.CallbackRegistry:TriggerEvent("BagHide")
-    end
+    self:ApplyState(details, details.isOpen)
   end
 end
 
