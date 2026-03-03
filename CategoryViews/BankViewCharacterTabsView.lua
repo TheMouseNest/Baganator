@@ -102,10 +102,6 @@ function BaganatorCategoryViewBankViewCharacterTabsViewMixin:ShowTab(character, 
     return
   end
 
-  local buttonPadding = 0
-
-  local lastButton
-
   self.isGrouping = not self.isLive and addonTable.Config.Get(addonTable.Config.Options.CATEGORY_ITEM_GROUPING)
   self.splitStacksDueToTransfer = self.isLive
 
@@ -117,6 +113,7 @@ function BaganatorCategoryViewBankViewCharacterTabsViewMixin:ShowTab(character, 
   local bagTypes = addonTable.CategoryViews.Utilities.GetBagTypes(characterData, "bank", Syndicator.Constants.AllBankIndexes)
   local bagWidth = addonTable.Config.Get(addonTable.Config.Options.CHARACTER_BANK_VIEW_WIDTH)
   local bagData = {}
+  local bagIndexes
   if self.currentTab > 0 then
     table.insert(bagData, characterData.bankTabs[tabIndex].slots)
     table.insert(bagTypes, 0)
