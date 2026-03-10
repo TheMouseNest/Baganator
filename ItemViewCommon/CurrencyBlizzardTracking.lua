@@ -23,6 +23,8 @@ local function ApplyBlizzard()
     end
     if currencyID and existingCurrencies[currencyID] then
       table.insert(backpackCurrencies, currencyID)
+    elseif currencyID then
+      addonTable.ItemViewCommon.SetCurrencyTrackedBlizzard(currencyID, false)
     else
       break
     end
@@ -78,25 +80,7 @@ end
 
 function addonTable.ItemViewCommon.SetCurrencyTrackedBlizzard(toTrackCurrencyID, state)
   if Syndicator.Constants.IsRetail then
-    local index = 0
-    while index < C_CurrencyInfo.GetCurrencyListSize() do
-      index = index + 1
-      local info = C_CurrencyInfo.GetCurrencyListInfo(index)
-      if info.isHeader then
-        if not info.isHeaderExpanded then
-          C_CurrencyInfo.ExpandCurrencyList(index, true)
-        end
-      else
-        local link = C_CurrencyInfo.GetCurrencyListLink(index)
-        if link ~= nil then
-          local currencyID = C_CurrencyInfo.GetCurrencyIDFromLink(link)
-          if currencyID == toTrackCurrencyID then
-            C_CurrencyInfo.SetCurrencyBackpack(index, state)
-            break
-          end
-        end
-      end
-    end
+    C_CurrencyInfo.SetCurrencyBackpackByID(toTrackCurrencyID, state)
   else -- Only versions of classic with currency (due to checks earlier)
     local index = 0
     while index < GetCurrencyListSize() do
