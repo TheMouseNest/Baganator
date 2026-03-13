@@ -55,6 +55,14 @@ function addonTable.SlashCmd.Reset()
   ReloadUI()
 end
 
+function addonTable.SlashCmd.Version()
+  addonTable.Utilities.Message(
+    BLUE_FONT_COLOR:WrapTextInColorCode("Version: ") .. C_AddOns.GetAddOnMetadata("Baganator", "Version") ..
+    LIGHTGRAY_FONT_COLOR:WrapTextInColorCode(", " .. date() .. ", ") ..
+    BLUE_FONT_COLOR:WrapTextInColorCode("WoW: ") .. select(4, GetBuildInfo())
+  )
+end
+
 function addonTable.SlashCmd.ResetCategories()
   addonTable.Config.ResetOne(addonTable.Config.Options.CUSTOM_CATEGORIES)
   addonTable.Config.ResetOne(addonTable.Config.Options.CATEGORY_MODIFICATIONS)
@@ -123,6 +131,8 @@ function addonTable.SlashCmd.SwapLayouts()
 end
 
 local COMMANDS = {
+  ["v"] = addonTable.SlashCmd.Version,
+  ["version"] = addonTable.SlashCmd.Version,
   ["c"] = addonTable.SlashCmd.Config,
   ["config"] = addonTable.SlashCmd.Config,
   ["timers"] = addonTable.SlashCmd.Timers,
