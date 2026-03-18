@@ -365,6 +365,9 @@ addonTable.Utilities.OnAddonLoaded("CanIMogIt", function()
   if C_EventUtils.IsEventValid("PET_JOURNAL_PET_DELETED") then
     RefreshFrame:RegisterEvent("PET_JOURNAL_PET_DELETED")
   end
+  if C_EventUtils.IsEventValid("HOUSE_DECOR_ADDED_TO_CHEST") then
+    RefreshFrame:RegisterEvent("HOUSE_DECOR_ADDED_TO_CHEST")
+  end
   RefreshFrame:SetScript("OnEvent", function()
     Callback()
   end)
