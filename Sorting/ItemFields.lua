@@ -245,5 +245,5 @@ keysMapping["sortedInvSlotID"] = function(self)
 end
 
 keysMapping["specialSplitting"] = function()
-  return ""
+  return 0
 end

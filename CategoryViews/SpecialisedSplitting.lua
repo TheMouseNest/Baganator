@@ -131,12 +131,12 @@ function BaganatorCategoryViewsSpecialisedSplittingMixin:Process()
         if splitType == QueueReason.Lockbox then
           for _, line in ipairs(info.tooltipInfoSpell.lines) do
             if line.leftText == LOCKED then
-              info.specialSplitting = "locked"
+              info.specialSplitting = 0
               break
             end
           end
           if not info.specialSplitting then
-            info.specialSplitting = "unlocked"
+            info.specialSplitting = 1
           end
         elseif splitType == QueueReason.ConsumableCharges then
           local chargeText = addonTable.Utilities.GetChargesLine(info.tooltipInfoSpell)
