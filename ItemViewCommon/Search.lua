@@ -126,23 +126,25 @@ function BaganatorSearchWidgetMixin:OnLoad()
       local button = rootDescription:CreateButton(details.label, function()
         addonTable.CallbackRegistry:TriggerEvent("SearchTextChanged", details.search)
       end)
-      button:AddInitializer(function(button, description, menu)
-        local delete = MenuTemplates.AttachAutoHideButton(button, "transmog-icon-remove")
-        delete:SetPoint("RIGHT")
-        delete:SetSize(16, 16)
-        delete.Texture:SetAtlas("transmog-icon-remove")
-        delete:SetScript("OnClick", function()
-          local list = addonTable.Config.Get(addonTable.Config.Options.SAVED_SEARCHES)
-          local oldIndex = FindInTableIf(list, function(a) return a.label == details.label end)
-          if oldIndex then
-            table.remove(list, oldIndex)
-          end
-          menu:Close()
+      if not InCombatLockdown() then
+        button:AddInitializer(function(button, description, menu)
+          local delete = MenuTemplates.AttachAutoHideButton(button, "transmog-icon-remove")
+          delete:SetPoint("RIGHT")
+          delete:SetSize(16, 16)
+          delete.Texture:SetAtlas("transmog-icon-remove")
+          delete:SetScript("OnClick", function()
+            local list = addonTable.Config.Get(addonTable.Config.Options.SAVED_SEARCHES)
+            local oldIndex = FindInTableIf(list, function(a) return a.label == details.label end)
+            if oldIndex then
+              table.remove(list, oldIndex)
+            end
+            menu:Close()
+          end)
+          MenuUtil.HookTooltipScripts(delete, function(tooltip)
+            GameTooltip_SetTitle(tooltip, DELETE);
+          end);
         end)
-        MenuUtil.HookTooltipScripts(delete, function(tooltip)
-          GameTooltip_SetTitle(tooltip, DELETE);
-        end);
-      end)
+      end
     end
     if #list > 0 then
       rootDescription:CreateDivider()
