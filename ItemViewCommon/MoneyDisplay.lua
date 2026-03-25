@@ -9,7 +9,7 @@ local function GetShowState(data)
   end
 end
 
-function addonTable.ShowGoldSummaryRealm(anchor, point)
+function addonTable.ShowGoldSummaryRealm(anchor, point, includeWarband)
   GameTooltip:SetOwner(anchor, point)
 
   local connectedRealms = Syndicator.Utilities.GetConnectedRealms()
@@ -41,6 +41,19 @@ function addonTable.ShowGoldSummaryRealm(anchor, point)
 
   local lines = {}
   local total = 0
+
+  if includeWarband then
+    local warbandData = Syndicator.API.GetWarband and Syndicator.API.GetWarband(1)
+    if warbandData and (warbandData.details == nil or warbandData.details.gold) then
+      local warband = warbandData.money or 0
+      if warband > 0 then
+        table.insert(lines, {left = PASSIVE_SPELL_FONT_COLOR:WrapTextInColorCode(addonTable.Locales.WARBAND), right = addonTable.Utilities.GetMoneyString(warband, true)})
+        table.insert(lines, {left = " ", right = ""})
+      end
+      total = total + warband
+    end
+  end
+
   for _, characterInfo in ipairs(allCharacters) do
     if realmsToInclude[characterInfo.realmNormalized] and GetShowState(Syndicator.API.GetCharacter(characterInfo.fullName)) and (not applyFaction or currentFaction == characterInfo.faction) then
       local money = Syndicator.API.GetCharacter(characterInfo.fullName).money

@@ -53,7 +53,11 @@ function BaganatorCurrencyWidgetMixin:OnLoad()
     if IsShiftKeyDown() then
       addonTable.ShowGoldSummaryAccount(self.Money, "ANCHOR_TOP")
     else
-      addonTable.ShowGoldSummaryRealm(self.Money, "ANCHOR_TOP")
+      addonTable.ShowGoldSummaryRealm(
+        self.Money,
+        "ANCHOR_TOP",
+        addonTable.Config.Get(addonTable.Config.Options.INCLUDE_WARBAND_GOLD_IN_REALM_TOTAL)
+      )
     end
   end
   self.Money:SetScript("OnEnter", function()

@@ -113,6 +113,11 @@ local LAYOUT_OPTIONS = {
   },
   {
     type = "checkbox",
+    text = addonTable.Locales.INCLUDE_WARBAND_GOLD_IN_REALM_TOTAL,
+    option = "include_warband_gold_in_realm_total",
+  },
+  {
+    type = "checkbox",
     text = addonTable.Locales.REDUCE_UI_SPACING,
     option = "reduce_spacing",
   },
