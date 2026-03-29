@@ -80,6 +80,8 @@ addonTable.Utilities.OnAddonLoaded("Baganator", function()
   end
 
   addonTable.Core.MigrateSettings()
+
+  addonTable.Core.RunAnalytics()
 end)
 
 function addonTable.ReportEntry()
