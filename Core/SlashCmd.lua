@@ -101,7 +101,11 @@ end
 function addonTable.SlashCmd.Search(...)
   local text = ""
   for i,v in ipairs({...}) do
-    text = text .. " " .. v
+    if i > 1 then
+      text = text .. " " .. v
+    else
+      text = t
+    end
   end
   addonTable.CallbackRegistry:TriggerEvent("SearchTextChanged", text)
   addonTable.CallbackRegistry:TriggerEvent("BagShow")
