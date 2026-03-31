@@ -99,15 +99,7 @@ function addonTable.SlashCmd.RemoveUnusedCategories()
 end
 
 function addonTable.SlashCmd.Search(...)
-  local text = ""
-  for i,v in ipairs({...}) do
-    if i > 1 then
-      text = text .. " " .. v
-    else
-      text = t
-    end
-  end
-  addonTable.CallbackRegistry:TriggerEvent("SearchTextChanged", text)
+  addonTable.CallbackRegistry:TriggerEvent("SearchTextChanged", table.concat({ ... }, " "))
   addonTable.CallbackRegistry:TriggerEvent("BagShow")
 end
 
