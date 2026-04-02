@@ -98,8 +98,8 @@ function addonTable.SlashCmd.RemoveUnusedCategories()
   addonTable.Utilities.Message(addonTable.Locales.REMOVED_UNUSED_CATEGORIES)
 end
 
-function addonTable.SlashCmd.Search(text)
-  addonTable.CallbackRegistry:TriggerEvent("SearchTextChanged", text)
+function addonTable.SlashCmd.Search(...)
+  addonTable.CallbackRegistry:TriggerEvent("SearchTextChanged", table.concat({...}, " "))
   addonTable.CallbackRegistry:TriggerEvent("BagShow")
 end
 
