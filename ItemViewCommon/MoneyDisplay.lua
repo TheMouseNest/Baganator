@@ -9,7 +9,22 @@ local function GetShowState(data)
   end
 end
 
-function addonTable.ShowGoldSummaryRealm(anchor, point)
+local function AddWarbandLine(lines, warband)
+  if warband > 0 then
+    table.insert(lines, {left = PASSIVE_SPELL_FONT_COLOR:WrapTextInColorCode(addonTable.Locales.WARBAND), right = addonTable.Utilities.GetMoneyString(warband, true)})
+    table.insert(lines, {left = " ", right = ""})
+  end
+end
+
+local function GetWarbandGold()
+  local warbandData = Syndicator.API.GetWarband and Syndicator.API.GetWarband(1)
+  if warbandData and (warbandData.details == nil or warbandData.details.gold) then
+    return warbandData.money or 0
+  end
+  return 0
+end
+
+function addonTable.ShowGoldSummaryRealm(anchor, point, includeWarband)
   GameTooltip:SetOwner(anchor, point)
 
   local connectedRealms = Syndicator.Utilities.GetConnectedRealms()
@@ -41,6 +56,13 @@ function addonTable.ShowGoldSummaryRealm(anchor, point)
 
   local lines = {}
   local total = 0
+
+  if includeWarband then
+    local warband = GetWarbandGold()
+    AddWarbandLine(lines, warband)
+    total = total + warband
+  end
+
   for _, characterInfo in ipairs(allCharacters) do
     if realmsToInclude[characterInfo.realmNormalized] and GetShowState(Syndicator.API.GetCharacter(characterInfo.fullName)) and (not applyFaction or currentFaction == characterInfo.faction) then
       local money = Syndicator.API.GetCharacter(characterInfo.fullName).money
@@ -98,21 +120,11 @@ function addonTable.ShowGoldSummaryAccount(anchor, point)
   local function AddGuild(guildName, guildRealmNormalized, guildTotal)
     table.insert(lines, {left = TRANSMOGRIFY_FONT_COLOR:WrapTextInColorCode(guildName) .. "-" .. guildRealmNormalized, right = addonTable.Utilities.GetMoneyString(guildTotal, true)})
   end
-  local function AddWarband(warband)
-    if warband > 0 then
-      table.insert(lines, {left = PASSIVE_SPELL_FONT_COLOR:WrapTextInColorCode(addonTable.Locales.WARBAND), right = addonTable.Utilities.GetMoneyString(warband, true)})
-      table.insert(lines, {left = " ", right = ""})
-    end
-  end
-
   local total = 0
 
-  local warbandData = Syndicator.API.GetWarband and Syndicator.API.GetWarband(1)
-  if warbandData and (warbandData.details == nil or warbandData.details.gold) then
-    local warband = warbandData.money or 0
-    AddWarband(warband)
-    total = total + warband
-  end
+  local warband = GetWarbandGold()
+  AddWarbandLine(lines, warband)
+  total = total + warband
 
   local realmTotal = 0
   local realmCount = 0

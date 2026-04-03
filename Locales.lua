@@ -173,6 +173,7 @@ L["FACTION_REALM_WIDE_GOLD_X"] = "Faction/realm-wide gold: %s"
 L["ACCOUNT_GOLD_X"] = "Account gold: %s"
 L["REALM_X_X_X"] = "%s (x%s)"
 L["HOLD_SHIFT_TO_SHOW_ACCOUNT_TOTAL"] = "<Hold shift to show account total>"
+L["INCLUDE_WARBAND_GOLD_IN_REALM_TOTAL"] = "Include Warband Gold in Realm Total"
 
 L["CRAFTING_WINDOW"] = "Crafting Window"
 L["AUCTION_HOUSE"] = "Auction House"

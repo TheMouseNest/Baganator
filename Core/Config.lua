@@ -32,6 +32,7 @@ local settings = {
   CURRENCY_HEADERS_COLLAPSED = {key = "currency_headers_collapsed", default = {}},
   CURRENCIES_TRACKED = {key = "currencies_tracked", default = {}},
   CURRENCIES_TRACKED_IMPORTED = {key = "currencies_tracked_imported", default = 0},
+  INCLUDE_WARBAND_GOLD_IN_REALM_TOTAL = {key = "include_warband_gold_in_realm_total", default = false},
   SHOW_SEARCH_BOX = {key = "show_search_box", default = true, refresh = {Refresh.Layout}},
 
   BANK_CURRENT_TAB = {key = "bank_current_tab", default = 1},
