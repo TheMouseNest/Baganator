@@ -174,6 +174,10 @@ function BaganatorItemViewCommonBackpackViewMixin:ToggleBagSlots()
   addonTable.Config.Set(addonTable.Config.Options.MAIN_VIEW_SHOW_BAG_SLOTS, not addonTable.Config.Get(addonTable.Config.Options.MAIN_VIEW_SHOW_BAG_SLOTS))
 end
 
+function BaganatorItemViewCommonBackpackViewMixin:ToggleIdenticalSlots()
+  addonTable.Config.Set(addonTable.Config.Options.CATEGORY_ITEM_GROUPING, not addonTable.Config.Get(addonTable.Config.Options.CATEGORY_ITEM_GROUPING))
+end
+
 function BaganatorItemViewCommonBackpackViewMixin:UpdateForCharacter(character, isLive)
   addonTable.ReportEntry()
 
