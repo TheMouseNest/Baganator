@@ -16,10 +16,16 @@ local function RegisterBagTransfer(condition, action, confirmOnAll, tooltipText)
   table.insert(addonTable.BagTransfers, { condition = condition, action = action, confirmOnAll = confirmOnAll, tooltipText = tooltipText})
 end
 
+-- Specialised check for guild bank open because the C_PlayerInteractionManager API doesn't update until a frame later
+local isGuildBankOpen = false
+
 local playerInteractionManagerChecking = CreateFrame("Frame")
 playerInteractionManagerChecking:RegisterEvent("PLAYER_INTERACTION_MANAGER_FRAME_SHOW")
 playerInteractionManagerChecking:RegisterEvent("PLAYER_INTERACTION_MANAGER_FRAME_HIDE")
-playerInteractionManagerChecking:SetScript("OnEvent", function()
+playerInteractionManagerChecking:SetScript("OnEvent", function(_, eventName, kind)
+  if kind == Enum.PlayerInteractionType.GuildBanker then
+    isGuildBankOpen = eventName == "PLAYER_INTERACTION_MANAGER_FRAME_SHOW"
+  end
   CallActivationCallbacks()
 end)
 
@@ -180,7 +186,7 @@ RegisterBagTransfer(
 
 RegisterBagTransfer(
   -- At a guild bank and allowed to deposit items
-  function() return C_PlayerInteractionManager.IsInteractingWithNpcOfType(Enum.PlayerInteractionType.GuildBanker) and (select(4, GetGuildBankTabInfo(GetCurrentGuildBankTab()))) and addonTable.Config.Get(addonTable.Config.Options.GUILD_CURRENT_TAB) ~= 0 end,
+  function() return isGuildBankOpen and (select(4, GetGuildBankTabInfo(GetCurrentGuildBankTab()))) and addonTable.Config.Get(addonTable.Config.Options.GUILD_CURRENT_TAB) ~= 0 end,
   function(matches, characterName, callback)
     local guildTab = addonTable.Config.Get(addonTable.Config.Options.GUILD_CURRENT_TAB)
     local guildSlots = addonTable.Transfers.GetGuildSlots(Syndicator.API.GetGuild(Syndicator.API.GetCurrentGuild()).bank[guildTab], guildTab)
