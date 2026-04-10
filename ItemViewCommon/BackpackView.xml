@@ -59,6 +59,13 @@
           </OnClick>
         </Scripts>
       </Button>
+      <Button parentKey="ToggleIdenticalSlotsButton" inherits="BaganatorToggleIdenticalSlotsButtonTemplate" frameLevel="700" parentArray="TopButtons">
+        <Scripts>
+          <OnClick>
+            self:GetParent():ToggleIdenticalSlots()
+          </OnClick>
+        </Scripts>
+      </Button>
       <Button parentKey="CurrencyButton" inherits="BaganatorCurrencyButtonTemplate" frameLevel="700"/>
 
       <Frame parentKey="SearchWidget" inherits="BaganatorSearchWidgetTemplate"/>
