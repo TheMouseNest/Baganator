@@ -345,7 +345,7 @@ addonTable.Utilities.OnAddonLoaded("CanIMogIt", function()
       or IsPet(details.itemID)
       or (C_MountJournal ~= nil and C_MountJournal.GetMountFromItem(details.itemID) ~= nil)
       or (C_Item.IsDecorItem ~= nil and C_Item.IsDecorItem(details.itemID))
-      or CanIMogIt:IsItemEnsemble(details.itemLink))
+      or addonTable.Constants.IsRetail and CanIMogIt:IsItemEnsemble(details.itemLink))
   end,
   function(itemButton)
     CIMI_AddToFrame(itemButton, function() end)
