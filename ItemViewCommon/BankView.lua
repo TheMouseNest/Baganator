@@ -249,3 +249,7 @@ end
 function BaganatorItemViewCommonBankViewMixin:GetExternalSortMethodName()
   return addonTable.Utilities.GetExternalSortMethodName()
 end
+
+if table.freeze then
+  table.freeze(BaganatorItemViewCommonBankViewMixin)
+end

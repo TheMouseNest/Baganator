@@ -220,3 +220,7 @@ function BaganatorCategoryViewBackpackViewMixin:UpdateForCharacter(character, is
     addonTable.CallbackRegistry:TriggerEvent("ViewComplete")
   end)
 end
+
+if table.freeze then
+  table.freeze(BaganatorCategoryViewBackpackViewMixin)
+end

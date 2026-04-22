@@ -169,3 +169,7 @@ function BaganatorCategoryViewBankViewCharacterViewMixin:UpdateForCharacter(char
     self:GetParent():OnTabFinished()
   end)
 end
+
+if table.freeze then
+  table.freeze(BaganatorCategoryViewBankViewCharacterViewMixin)
+end

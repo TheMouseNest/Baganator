@@ -176,3 +176,7 @@ function BaganatorCategoryViewsSpecialisedSplittingMixin:Process()
     self.callback()
   end
 end
+
+if table.freeze then
+  table.freeze(BaganatorCategoryViewsSpecialisedSplittingMixin)
+end

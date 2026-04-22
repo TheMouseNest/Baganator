@@ -375,3 +375,7 @@ end
 function BaganatorItemViewCommonBackpackViewMixin:GetExternalSortMethodName()
   return addonTable.Utilities.GetExternalSortMethodName()
 end
+
+if table.freeze then
+  table.freeze(BaganatorItemViewCommonBackpackViewMixin)
+end

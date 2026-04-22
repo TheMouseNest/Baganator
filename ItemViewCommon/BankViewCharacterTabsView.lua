@@ -603,3 +603,7 @@ function BaganatorItemViewCommonBankViewCharacterTabsViewMixin:OnFinished(charac
 
   self:UpdateScroll(50 + searchSpacing + topSpacing * 1/4 + externalVerticalSpacing + buttonPadding + self.CurrencyWidget:GetExtraHeight(), self:GetParent():GetScale())
 end
+
+if table.freeze then
+  table.freeze(BaganatorItemViewCommonBankViewCharacterTabsViewMixin)
+end

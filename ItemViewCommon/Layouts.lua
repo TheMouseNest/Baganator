@@ -285,9 +285,6 @@ function BaganatorCachedBagLayoutMixin:RebuildLayout(newBags, indexes, indexesTo
   self.buttonsByBag = {}
   self.buttonPool:ReleaseAll()
 
-  local iconSize = addonTable.Config.Get(addonTable.Config.Options.BAG_ICON_SIZE)
-
-  local rows, cols = 0, 0
   for bagIndex = 1, #newBags do
     local bagButtons = {}
     if indexesToUse[bagIndex] and indexes[bagIndex] then
@@ -1585,4 +1582,16 @@ function BaganatorBagDividerMixin:OnLoad()
     self.Divider:SetPoint("TOPRIGHT", 0, 6)
   end
   addonTable.Skins.AddFrame("Divider", self.Divider)
+end
+
+if table.freeze then
+  table.freeze(BaganatorCachedBagLayoutMixin)
+  table.freeze(BaganatorLiveBagLayoutMixin)
+  table.freeze(BaganatorLiveCategoryLayoutMixin)
+  table.freeze(BaganatorGeneralGuildLayoutMixin)
+  table.freeze(BaganatorUnifiedGuildLayoutMixin)
+  table.freeze(BaganatorLiveUnifiedGuildLayoutMixin)
+  table.freeze(BaganatorLiveWarbandLayoutMixin)
+  table.freeze(BaganatorCachedWarbandLayoutMixin)
+  table.freeze(BaganatorSearchLayoutMonitorMixin)
 end

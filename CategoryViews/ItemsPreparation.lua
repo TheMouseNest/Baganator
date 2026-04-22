@@ -67,3 +67,7 @@ function BaganatorCategoryViewsItemsPreparationMixin:CleanItems(everything)
     setmetatable(item, nil)
   end
 end
+
+if table.freeze then
+  table.freeze(BaganatorCategoryViewsItemsPreparationMixin)
+end

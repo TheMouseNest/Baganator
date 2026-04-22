@@ -172,3 +172,7 @@ function BaganatorCategoryViewsCategoryFilterMixin:DoSearch()
     end)
   end
 end
+
+if table.freeze then
+  table.freeze(BaganatorCategoryViewsCategoryFilterMixin)
+end

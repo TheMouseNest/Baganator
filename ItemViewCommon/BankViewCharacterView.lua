@@ -286,3 +286,7 @@ function BaganatorItemViewCommonBankViewCharacterViewMixin:OnFinished(forceResiz
     self:UpdateScroll(73 + buttonPadding + externalVerticalSpacing, self:GetParent():GetScale())
   end
 end
+
+if table.freeze then
+  table.freeze(BaganatorItemViewCommonBankViewCharacterViewMixin)
+end

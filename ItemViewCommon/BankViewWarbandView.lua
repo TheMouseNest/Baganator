@@ -632,3 +632,7 @@ function BaganatorItemViewCommonBankViewWarbandViewMixin:WithdrawMoney()
     C_Bank.WithdrawMoney(Enum.BankType.Account, value)
   end)
 end
+
+if table.freeze then
+  table.freeze(BaganatorItemViewCommonBankViewWarbandViewMixin)
+end

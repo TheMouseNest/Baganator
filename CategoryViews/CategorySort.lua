@@ -64,3 +64,7 @@ function BaganatorCategoryViewsCategorySortMixin:SortResults()
     end)
   end
 end
+
+if table.freeze then
+  table.freeze(BaganatorCategoryViewsCategorySortMixin)
+end

@@ -539,3 +539,7 @@ function BaganatorCategoryViewsCategoryGroupingMixin:GroupingResults()
     end)
   end
 end
+
+if table.freeze then
+  table.freeze(BaganatorCategoryViewsCategoryGroupingMixin)
+end

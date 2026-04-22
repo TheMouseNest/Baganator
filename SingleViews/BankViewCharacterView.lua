@@ -203,3 +203,7 @@ function BaganatorSingleViewBankViewCharacterViewMixin:UpdateForCharacter(charac
 
   self.refreshState = {}
 end
+
+if table.freeze then
+  table.freeze(BaganatorSingleViewBankViewCharacterViewMixin)
+end

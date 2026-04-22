@@ -143,3 +143,7 @@ function BaganatorCategoryViewBankViewWarbandViewMixin:ShowTab(tabIndex, isLive)
     self:GetParent():OnTabFinished()
   end)
 end
+
+if table.freeze then
+  table.freeze(BaganatorCategoryViewBankViewCharacterTabsViewMixin)
+end

@@ -1383,3 +1383,12 @@ function BaganatorClassicLiveGuildItemButtonMixin:SetItemFiltered(text)
   self.searchOverlay:SetShown(not result)
   SetWidgetsAlpha(self, result)
 end
+
+if table.freeze then
+  table.freeze(BaganatorRetailCachedItemButtonMixin)
+  table.freeze(BaganatorRetailLiveContainerItemButtonMixin)
+  table.freeze(BaganatorRetailLiveGuildItemButtonMixin)
+  table.freeze(BaganatorClassicCachedItemButtonMixin)
+  table.freeze(BaganatorClassicLiveContainerItemButtonMixin)
+  table.freeze(BaganatorClassicLiveGuildItemButtonMixin)
+end

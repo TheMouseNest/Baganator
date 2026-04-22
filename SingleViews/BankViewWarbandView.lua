@@ -85,3 +85,7 @@ function BaganatorSingleViewBankViewWarbandViewMixin:ShowTab(tabIndex, isLive)
 
   self:GetParent():OnTabFinished()
 end
+
+if table.freeze then
+  table.freeze(BaganatorSingleViewBankViewWarbandViewMixin)
+end

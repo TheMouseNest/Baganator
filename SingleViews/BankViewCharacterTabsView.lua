@@ -89,3 +89,7 @@ function BaganatorSingleViewBankViewCharacterTabsViewMixin:ShowTab(character, ta
 
   self:GetParent():OnTabFinished()
 end
+
+if table.freeze then
+  table.freeze(BaganatorSingleViewBankViewCharacterTabsViewMixin)
+end

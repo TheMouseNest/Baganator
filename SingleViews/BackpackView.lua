@@ -190,3 +190,7 @@ function BaganatorSingleViewBackpackViewMixin:GetSearchMatches()
   end
   return matches
 end
+
+if table.freeze then
+  table.freeze(BaganatorSingleViewBackpackViewMixin)
+end
