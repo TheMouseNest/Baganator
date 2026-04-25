@@ -372,9 +372,9 @@ do
       explorer = "|cnIQ2:|Hitem:237894::::::::80:253::25:5:12265:6652:10394:10392:3171:1:28:2462:::::|h[Pendant of Arcane Havoc]|h|r",
       adventurer = "|cnIQ3:|Hitem:249627::::::::90:104::126:3:12769:6652:13668:1:28:6020:::::|h[Arboreal Vine Collar]|h|r",
       veteran = "|cnIQ4:|Hitem:211028::::::::80:253::173:7:12282:6652:12921:11215:12239:3247:10255:1:28:2462:::::|h[Torchbearer's Bracers]|h|r",
-      champion = "|cnIQ4:|Hitem:237739::::::::80:268::3:1:3524:1:28:3228:::::|h[Obliteration Beamglaive]|h|r",
-      hero = "|cnIQ4:|Hitem:237739::::::::80:268::5:1:3524:1:28:3229:::::|h[Obliteration Beamglaive]|h|r",
-      myth = "|cnIQ4:|Hitem:237525::::::::80:268::6:1:3524:1:28:3230:::::|h[Irradiated Impurity Filter]|h|r",
+      champion = "|cnIQ4:|Hitem:249303::::::::90:1473::3:5:6652:12667:13577:13333:12787:1:28:3607:::::|h[Waistcord of the Judged]|h|r",
+      hero =  "|cnIQ4:|Hitem:193707::::::::90:1473::16:4:12795:13440:6652:12701:1:28:1279:::::|h[Final Grade]|h|r",
+      myth = "|cnIQ4:|Hitem:250247::::::::90:268::6:1:3524:1:28:3610:::::|h[Amulet of the Abyssal Hymn]|h|r",
     }
     local order = {
       "myth", "hero", "champion", "veteran", "adventurer", "explorer",
