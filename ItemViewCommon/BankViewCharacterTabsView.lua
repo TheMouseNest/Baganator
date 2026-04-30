@@ -160,7 +160,7 @@ function BaganatorItemViewCommonBankViewCharacterTabsViewMixin:ApplySearch(text)
 end
 
 function BaganatorItemViewCommonBankViewCharacterTabsViewMixin:ApplyTabButtonSearch(text)
-  if not self:IsShown() then
+  if not self:IsShown() or not self.Tabs then
     return
   end
 
