@@ -146,7 +146,8 @@ CustomiseDialog\Categories\RecentEditor.lua
 CustomiseDialog\Categories\EmptyEditor.lua
 CustomiseDialog\Categories\Utilities.lua
 CustomiseDialog\Categories\ImportExport.lua
-CustomiseDialog\Categories\ImportDialog.lua
+CustomiseDialog\ImportDialog.lua
+CustomiseDialog\ImportExport.lua
 CustomiseDialog\Main.lua
 CustomiseDialog\Main.xml
 CustomiseDialog\Initialize.lua

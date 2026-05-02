@@ -32,6 +32,11 @@ function addonTable.CustomiseDialog.Initialize()
     customiseDialog[currentSkinKey]:Raise()
   end)
 
+  function addonTable.CustomiseDialog.IsDialogOpen()
+    local currentSkinKey = addonTable.Config.Get(addonTable.Config.Options.CURRENT_SKIN)
+    return customiseDialog[currentSkinKey] and customiseDialog[currentSkinKey]:IsShown()
+  end
+
   -- Create shortcut to open Baganator options from the Bliizzard addon options
   -- panel
   do

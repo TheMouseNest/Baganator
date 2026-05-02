@@ -150,7 +150,7 @@ local function SetupCategories()
     -- If the layout hasn't been changed, or has only had "Recent (Auto)" added
     if tCompare(displayOrderForCmp, addonTable.CategoryViews.Constants.OldDefaults) or #displayOrder == 0 or CompareCurrent() then
 
-      addonTable.CustomiseDialog.CategoriesImport(addonTable.CategoryViews.Constants.DefaultImport[addonTable.CategoryViews.Constants.DefaultImportVersion])
+      addonTable.CustomiseDialog.CategoriesImport(C_EncodingUtil.DeserializeJSON(addonTable.CategoryViews.Constants.DefaultImport[addonTable.CategoryViews.Constants.DefaultImportVersion]))
       Mixin(addonTable.Config.Get(addonTable.Config.Options.CATEGORY_SECTIONS, oldSections))
       addonTable.Config.Set(addonTable.Config.Options.CATEGORY_MODIFICATIONS, oldCategoryMods)
       local newAdded = {}

@@ -58,6 +58,7 @@ function addonTable.Skins.Initialize()
         end
       end
       local bagsShown = addonTable.ViewManagement.GetBackpackFrame():IsShown()
+      local customiseShown = addonTable.CustomiseDialog.IsDialogOpen()
       local lastCharacter = addonTable.ViewManagement.GetBackpackFrame().lastCharacter
       currentSkin = addonTable.Skins.availableSkins[addonTable.Config.Get(addonTable.Config.Options.CURRENT_SKIN)]
       currentSkinner = currentSkin.skinner
@@ -70,7 +71,9 @@ function addonTable.Skins.Initialize()
       if bagsShown then
         addonTable.CallbackRegistry:TriggerEvent("BagShow", lastCharacter)
       end
-      addonTable.CallbackRegistry:TriggerEvent("ShowCustomise")
+      if customiseShown and not addonTable.CustomiseDialog.IsDialogOpen() then
+        addonTable.CallbackRegistry:TriggerEvent("ShowCustomise")
+      end
     end
   end)
 end

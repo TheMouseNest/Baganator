@@ -450,8 +450,13 @@ function addonTable.CustomiseDialog.GetCategoriesOrganiser(parent)
   importButton:SetText(addonTable.Locales.IMPORT)
   DynamicResizeButton_Resize(importButton)
   importButton:SetScript("OnClick", function()
-    addonTable.CustomiseDialog.ShowCategoriesImportDialog(function(text)
-      addonTable.CustomiseDialog.CategoriesImport(text)
+    addonTable.CustomiseDialog.ShowImportDialog(function(text)
+      local success, import = pcall(C_EncodingUtil.DeserializeJSON, text)
+      if not success or type(import) ~= "table" then
+        addonTable.Utilities.Message(addonTable.Locales.INVALID_CATEGORY_IMPORT_FORMAT)
+        return
+      end
+      addonTable.CustomiseDialog.CategoriesImport(import)
     end)
   end)
   addonTable.Skins.AddFrame("Button", importButton)

@@ -3,8 +3,9 @@ local addonTable = select(2, ...)
 
 function addonTable.CustomiseDialog.SingleCategoryExport(name)
   local export = {
-    version = 2,
+    version = 3,
     addon = "Baganator",
+    kind = "categories",
     categories = {},
     modifications = {},
   }
@@ -52,8 +53,9 @@ end
 
 function addonTable.CustomiseDialog.CategoriesExport()
   local export = {
-    version = 2,
+    version = 3,
     addon = "Baganator",
+    kind = "categories",
     categories = {},
     sections = CopyTable(addonTable.Config.Get("category_sections")),
     modifications = {},
@@ -240,9 +242,8 @@ local function ImportCategories(import)
   return customCategories, categoryMods, seenItems
 end
 
-function addonTable.CustomiseDialog.CategoriesImport(input)
-  local success, import = pcall(C_EncodingUtil.DeserializeJSON, input)
-  if not success then
+function addonTable.CustomiseDialog.CategoriesImport(import)
+  if import.version > 2 and import.kind ~= "categories" then
     addonTable.Utilities.Message(addonTable.Locales.INVALID_CATEGORY_IMPORT_FORMAT)
     return
   end

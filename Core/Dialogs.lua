@@ -252,3 +252,44 @@ function addonTable.Dialogs.ShowMoney(text, value, acceptText, cancelText, confi
 
   dialog:Show()
 end
+
+local dualChoiceDialogsBySkin = {}
+function addonTable.Dialogs.ShowDualChoice(text, option1Text, option2Text, option1Callback, option2Callback)
+  local currentSkinKey = addonTable.Config.Get(addonTable.Config.Options.CURRENT_SKIN)
+  if not dualChoiceDialogsBySkin[currentSkinKey] then
+    local dialog = GenerateDialog()
+    dialog:SetSize(450, 100)
+    dialog.text:SetPoint("TOP", 0, -30)
+
+    dialog.option1Button = CreateFrame("Button", nil, dialog, "UIPanelDynamicResizeButtonTemplate")
+    dialog.option2Button = CreateFrame("Button", nil, dialog, "UIPanelDynamicResizeButtonTemplate")
+    dialog.cancelButton = CreateFrame("Button", nil, dialog, "UIPanelDynamicResizeButtonTemplate")
+
+    dialog.option1Button:SetPoint("RIGHT", dialog.option2Button, "LEFT", -10, 0)
+    dialog.option2Button:SetPoint("TOP", dialog, "CENTER", 0, -10)
+    dialog.cancelButton:SetPoint("LEFT", dialog.option2Button, "RIGHT", 10, 0)
+    dialog.cancelButton:SetScript("OnClick", function()
+      dialog:Hide()
+    end)
+
+    --addonTable.Skins.AddFrame("Button", dialog.acceptButton)
+    --addonTable.Skins.AddFrame("Button", dialog.cancelButton)
+
+    dualChoiceDialogsBySkin[currentSkinKey] = dialog
+  end
+
+  local dialog = dualChoiceDialogsBySkin[currentSkinKey]
+  dialog:Hide()
+
+  dialog.text:SetText(text)
+  dialog.option1Button:SetText(option1Text)
+  DynamicResizeButton_Resize(dialog.option1Button)
+  dialog.option2Button:SetText(option2Text)
+  DynamicResizeButton_Resize(dialog.option2Button)
+  dialog.cancelButton:SetText(CANCEL)
+  DynamicResizeButton_Resize(dialog.cancelButton)
+  dialog.option1Button:SetScript("OnClick", function() option1Callback(); dialog:Hide() end)
+  dialog.option2Button:SetScript("OnClick", function() option2Callback(); dialog:Hide() end)
+
+  dialog:Show()
+end

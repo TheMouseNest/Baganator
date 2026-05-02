@@ -3,12 +3,12 @@ local addonTable = select(2, ...)
 
 local dialogsBySkin = {}
 
-function addonTable.CustomiseDialog.ShowCategoriesImportDialog(callback)
+function addonTable.CustomiseDialog.ShowImportDialog(callback)
   local currentSkinKey = addonTable.Config.Get(addonTable.Config.Options.CURRENT_SKIN)
   if not dialogsBySkin[currentSkinKey] then
-    local dialog = CreateFrame("Frame", "BaganatorCustomiseDialogCategoriesImportDialog", UIParent)
+    local dialog = CreateFrame("Frame", "BaganatorCustomiseDialogImportDialog", UIParent)
     dialog:SetToplevel(true)
-    table.insert(UISpecialFrames, "BaganatorCustomiseDialogCategoriesImportDialog")
+    table.insert(UISpecialFrames, "BaganatorCustomiseDialogImportDialog")
     dialog:SetPoint("TOP", 0, -135)
     dialog:EnableMouse(true)
     dialog:SetFrameStrata("DIALOG")
@@ -73,7 +73,7 @@ function addonTable.CustomiseDialog.ShowCategoriesImportDialog(callback)
 
     acceptButton:SetScript("OnClick", function()
       if currentText ~= "" then
-        dialog.callback(currentText)
+        dialog.callback(currentText:gsub("%|%|", "|"))
       end
       dialog:Hide()
     end)
