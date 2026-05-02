@@ -353,7 +353,7 @@ local function GenerateFrames(options, parent)
     if not option.check or option.check() then
       local frame
       if option.type == "checkbox" then
-        frame = addonTable.CustomiseDialog.Components.GetCheckbox(parent, option.text, -28, function(checked)
+        frame = addonTable.CustomiseDialog.Components.GetCheckbox(parent, option.text, 20, function(checked)
           addonTable.Config.Set(option.option, checked)
         end)
         frame:SetPoint("TOP", lastFrame, "BOTTOM", 0, offsetY)
