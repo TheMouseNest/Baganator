@@ -748,6 +748,13 @@ function BaganatorCustomiseDialogMixin:SetupGeneral()
       tmp.addon = "Baganator"
       tmp.version = 3
       tmp.kind = "profile"
+      for key in pairs(addonTable.Config.MapKeysForExport) do
+        local new = {}
+        for k, v in pairs(tmp[key]) do
+          new[tostring(k)] = v
+        end
+        tmp[key] = new
+      end
       addonTable.Dialogs.ShowCopy(C_EncodingUtil.SerializeJSON(tmp):gsub("%|%|", "|"):gsub("%|", "||"))
     end)
     addonTable.Skins.AddFrame("Button", exportButton)

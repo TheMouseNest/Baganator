@@ -17,6 +17,16 @@ function addonTable.CustomiseDialog.ImportData(import, name, overwrite)
     import.addon = nil
     import.version = nil
     import.kind = nil
+    for key in pairs(addonTable.Config.MapKeysForExport) do
+      if import[key] then
+        local new = {}
+        for k, v in pairs(import[key]) do
+          local num = tonumber(k)
+          new[num or k] = v
+        end
+        import[key] = new
+      end
+    end
     if overwrite and BAGANATOR_CONFIG.Profiles[name] then
       local old = addonTable.Config.CurrentProfile
       BAGANATOR_CONFIG.Profiles[name] = import

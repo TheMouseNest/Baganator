@@ -126,6 +126,10 @@ addonTable.Config.IsCharacterSpecific = {
   [addonTable.Config.Options.CURRENCIES_TRACKED_IMPORTED] = true,
 }
 
+addonTable.Config.MapKeysForExport = {
+  [addonTable.Config.Options.HIDE_SPECIAL_CONTAINER] = true
+}
+
 function addonTable.Config.IsValidOption(name)
   for _, option in pairs(addonTable.Config.Options) do
     if option == name then
