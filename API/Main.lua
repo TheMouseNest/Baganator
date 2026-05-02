@@ -356,3 +356,20 @@ function Baganator.API.RequestLayoutUpdate()
     end)
   end
 end
+
+function Baganator.API.ImportString(importText, resultName)
+  assert(type(importText) == "string")
+
+  local status, data = pcall(C_EncodingUtil.DeserializeJSON, importText)
+  if not status then
+    error("Invalid Baganator import")
+  end
+
+  local result, reason = addonTable.CustomiseDialog.ImportData(data, resultName, true)
+
+  if result then
+    addonTable.Utilities.Message(addonTable.Locales.THANKS_FOR_USING_BAGANATOR_DONATE .. " https://linktr.ee/plusmouse")
+  else
+    error("Invalid Baganator import")
+  end
+end

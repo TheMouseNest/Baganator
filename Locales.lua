@@ -18,6 +18,8 @@ BAGANATOR_LOCALES = Locales
 
 local L = Locales.enUS
 
+L["THANKS_FOR_USING_BAGANATOR_DONATE"] = "Thanks for using Baganator. Consider donating to support development"
+
 L["BAGANATOR"] = "Baganator"
 L["TO_OPEN_OPTIONS_X"] = "Access options with /bgr"
 L["VERSION_COLON_X"] = "Version: %s"

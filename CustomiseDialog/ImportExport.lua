@@ -31,4 +31,6 @@ function addonTable.CustomiseDialog.ImportData(import, name, overwrite)
       addonTable.Config.ChangeProfile(BAGANATOR_CURRENT_PROFILE, old)
     end
   end
+
+  return true
 end

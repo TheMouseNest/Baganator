@@ -1,5 +1,7 @@
 ---@class addonTableBaganator
 local addonTable = select(2, ...)
+
+local print = print
 function addonTable.Utilities.Message(text)
   print(LINK_FONT_COLOR:WrapTextInColorCode("Baganator") .. ": " .. text)
 end
